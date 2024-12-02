@@ -4,9 +4,9 @@
 
 |       OS       |               [Arch Linux](https://archlinux.org/)               |
 | :------------: | :--------------------------------------------------------------: |
-|   AUR Helper   |           [yay](https://github.com/Jguer/yay)                    |
+|   AUR Helper   |               [yay](https://github.com/Jguer/yay)                |
 |     Shell      |                     [Zsh](https://ohmyz.sh)                      |
-| Window Manager |          [i3](https://github.com/i3/i3)                          |
+| Window Manager |                  [i3](https://github.com/i3/i3)                  |
 |   Compositor   |             [Picom](https://github.com/yshui/picom)              |
 |      Menu      |            [Rofi](https://github.com/davatorium/rofi)            |
 |    Terminal    |       [Alacritty](https://github.com/alacritty/alacritty)        |
@@ -173,4 +173,3 @@ Install nvm:
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 ```
-

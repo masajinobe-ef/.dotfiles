@@ -1,0 +1,66 @@
+[init]
+    defaultBranch = main
+
+[user]
+    email = priscilla.effects@gmail.com
+    name = masajinobe-ef
+
+[github]
+    user = masajinobe-ef
+
+[credential]
+    helper = store
+
+[core]
+    autocrlf = false
+    editor = nvim
+    ignorecase = false
+    excludesfile = ~/.gitignore
+
+[format]
+    pretty = oneline
+
+[http]
+    postBuffer = 157286400
+    version = HTTP/2
+
+[safe]
+    directory = /opt/zapret
+
+[pull]
+    rebase = false
+
+[color]
+    ui = auto
+    status = auto
+    diff = auto
+    branch = auto
+    interactive = auto
+    grep = auto
+
+[push]
+    default = simple
+
+[alias]
+    a = add .
+    c = commit -a
+
+    ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+    pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+
+    st = status
+
+    br = branch
+    ba = branch -a
+    bm = branch --merged
+    bn = branch --no-merged
+
+    d = diff
+    df = "!git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative | fzf | awk '{print $1}' | xargs -I {} git diff {}^ {}"
+
+    hist = log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate --all
+    llog = log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative
+
+    edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; nvim `f`"
+    add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+

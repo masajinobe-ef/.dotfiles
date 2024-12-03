@@ -1,6 +1,4 @@
-# Arch Linux i3wm сonfiguration
-
-## Description
+# .dotfiles
 
 |       OS       |               [Arch Linux](https://archlinux.org/)               |
 | :------------: | :--------------------------------------------------------------: |

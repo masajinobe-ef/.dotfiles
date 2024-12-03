@@ -5,14 +5,14 @@
 |       OS       |               [Arch Linux](https://archlinux.org/)               |
 | :------------: | :--------------------------------------------------------------: |
 |   AUR Helper   |               [yay](https://github.com/Jguer/yay)                |
-|     Shell      |                     [Zsh](https://ohmyz.sh)                      |
+|     Shell      |                     [zsh](https://ohmyz.sh)                      |
 | Window Manager |                  [i3](https://github.com/i3/i3)                  |
-|   Compositor   |             [Picom](https://github.com/yshui/picom)              |
-|      Menu      |            [Rofi](https://github.com/davatorium/rofi)            |
-|    Terminal    |       [Alacritty](https://github.com/alacritty/alacritty)        |
-|  File Manager  |             [Yazi/Thunar](https://yazi-rs.github.io)             |
-|    Browser     | [Chromium](https://archlinux.org/packages/extra/x86_64/chromium) |
-|  Text Editor   |                   [Neovim](https://neovim.io)                    |
+|   Compositor   |             [picom](https://github.com/yshui/picom)              |
+|      Menu      |            [rofi](https://github.com/davatorium/rofi)            |
+|    Terminal    |       [alacritty](https://github.com/alacritty/alacritty)        |
+|  File Manager  |             [yazi/thunar](https://yazi-rs.github.io)             |
+|    Browser     | [chromium](https://archlinux.org/packages/extra/x86_64/chromium) |
+|  Text Editor   |                   [neovim](https://neovim.io)                    |
 
 ### Installation
 
@@ -64,7 +64,23 @@ $ cd .dotfiles && git submodule update --remote --merge
 > Assuming your **AUR Helper** is [yay](https://github.com/Jguer/yay), run:
 
 ```sh
-$ yay -S --needed --noconfirm xorg-server xorg-xinit xorg-xrandr xorg-xsetroot xorg-xset i3wm i3status rofi chromium alacritty zsh dunst libnotify picom feh vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader mesa mesa-utils mesa-vdpau libva-mesa-driver lib32-mesa networkmanager nm-connection-editor sof-firmware bluez bluez-utils acpid cronie udisks2 xdg-user-dirs yazi perl-image-exiftool ueberzugpp imagemagick xreader thunar tumbler ffmpegthumbnailer polkit-gnome lxappearance-gtk3 neovim mpv mpd mpdris2 ncmpcpp mpc tmux ghq rainfrog syncthing git lazygit stow yt-dlp ffmpeg fastfetch btop eza fzf fd ripgrep bat bat-extras rsync curl wget maim xdotool xclip zoxide aria2 hyperfine xsel reflector jq man-db poppler ccache go rust nodejs npm yarn p7zip unrar zip unzip ttf-jetbrains-mono-nerd noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-cascadia-code-nerd papirus-icon-theme
+yay -S --needed --noconfirm \
+    xorg-server xorg-xinit xorg-xrandr xorg-xsetroot xorg-xset \
+    i3-wm i3status rofi chromium alacritty zsh dunst libnotify picom feh \
+    vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader \
+    lib32-vulkan-icd-loader mesa mesa-utils mesa-vdpau \
+    libva-mesa-driver lib32-mesa networkmanager nm-connection-editor \
+    sof-firmware bluez bluez-utils acpid cronie udisks2 \
+    xdg-user-dirs yazi perl-image-exiftool ueberzugpp imagemagick \
+    thunar tumbler ffmpegthumbnailer polkit-gnome \
+    lxappearance-gtk3 neovim mpv mpd mpdris2 ncmpcpp mpc \
+    tmux ghq rainfrog syncthing git lazygit stow yt-dlp \
+    ffmpeg fastfetch btop eza fzf fd ripgrep bat bat-extras \
+    rsync curl wget maim xdotool xclip zoxide aria2 hyperfine \
+    xsel reflector jq man-db poppler ccache go rustup nodejs \
+    npm yarn p7zip unrar zip unzip ttf-jetbrains-mono-nerd \
+    noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-cascadia-code-nerd \
+    papirus-icon-theme
 ```
 
 #### Copy configuration files
@@ -81,7 +97,7 @@ $ ./sym
 Enable and start necessary services:
 
 ```sh
-$ sudo systemctl enable acpid.service --now
+$ sudo systemctl disable acpid.service --now
 $ sudo systemctl enable NetworkManager.service --now
 $ sudo systemctl enable bluetooth.service --now
 $ sudo systemctl enable sshd.service --now
@@ -156,19 +172,19 @@ Consider installing the following plugins for Zsh:
 - [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search?tab=readme-ov-file#install)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
 
-Install tmux-sessionizer:
+Install **tmux-sessionizer**:
 
 ```sh
 $ cargo install tmux-sessionizer
 ```
 
-Install commitizen:
+Install **commitizen**:
 
 ```sh
 $ npm install -g commitizen cz-conventional-changelog
 ```
 
-Install nvm:
+Install **nvm**:
 
 ```sh
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash

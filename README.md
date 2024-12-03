@@ -8,7 +8,7 @@
 |   Compositor   |             [picom](https://github.com/yshui/picom)              |
 |      Menu      |            [rofi](https://github.com/davatorium/rofi)            |
 |    Terminal    |       [alacritty](https://github.com/alacritty/alacritty)        |
-|  File Manager  |             [yazi/thunar](https://yazi-rs.github.io)             |
+|  File Manager  |            [yazi / thunar](https://yazi-rs.github.io)            |
 |    Browser     | [chromium](https://archlinux.org/packages/extra/x86_64/chromium) |
 |  Text Editor   |                   [neovim](https://neovim.io)                    |
 

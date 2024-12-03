@@ -1,0 +1,8 @@
+default_session = "workflow"
+search_submodules = true
+recursive_submodules = true
+
+[[search_dirs]]
+path = "/home/masa/ghq"
+depth = 10
+

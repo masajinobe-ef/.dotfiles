@@ -13,6 +13,7 @@ general {
 
 order += "wireless _first_"
 order += "volume master"
+order += "battery all"
 order += "memory"
 order += "tztime local"
 
@@ -35,6 +36,14 @@ volume master {
         device = "default"
         mixer = "Master"
         mixer_idx = 0
+}
+
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║                          Battery Configuration                       ║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+battery all {
+        format = " %status %percentage %remaining"
 }
 
 # ╔══════════════════════════════════════════════════════════════════════╗

@@ -16,9 +16,8 @@ BRANCH="main" # Default branch
 
 BIN_DIR="$DOTFILES_DIR/bin"
 SCRIPTS_DIR="$DOTFILES_DIR/scripts"
+CONFIG_DIR="$DOTFILES_DIR/config"
 HOME_DIR="$DOTFILES_DIR/home"
-
-CONFIG_DIR="$DOTFILES_DIR/arch/config"
 
 TARGET_BIN="$HOME/.local/bin"
 TARGET_SCRIPTS="$HOME/.local/scripts"

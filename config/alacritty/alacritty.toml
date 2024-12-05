@@ -1,0 +1,24 @@
+general.import = ["~/.config/alacritty/themes/themes/carbonfox.toml"]
+
+[window]
+opacity = 0.95
+padding = { x = 0, y = 0 }
+dynamic_padding = true
+
+[terminal.shell]
+program = "/bin/zsh"
+
+[font]
+size = 14
+
+normal = { family = "JetbrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetbrainsMono Nerd Font", style = "Bold" }
+italic = { family = "JetbrainsMono Nerd Font", style = "italic" }
+bold_italic = { family = "JetbrainsMono Nerd Font", style = "Bold Italic" }
+
+[keyboard]
+bindings = [
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+]
+

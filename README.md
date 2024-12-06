@@ -72,7 +72,7 @@ yay -S --needed --noconfirm \
     xdg-user-dirs yazi perl-image-exiftool ueberzugpp imagemagick \
     thunar tumbler ffmpegthumbnailer polkit-gnome \
     lxappearance-gtk3 neovim mpv mpd mpdris2 ncmpcpp mpc \
-    tmux ghq rainfrog syncthing git lazygit stow yt-dlp \
+    tmux tmuxp ghq rainfrog syncthing git lazygit stow yt-dlp \
     ffmpeg fastfetch btop eza fzf fd ripgrep bat bat-extras \
     rsync curl wget maim xdotool xclip zoxide aria2 hyperfine \
     xsel reflector jq man-db poppler ccache go rustup nodejs \
@@ -167,14 +167,7 @@ Consider installing the following plugins for Zsh:
 - [powerlevel10k](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh)
 - [zsh-autopair](https://github.com/hlissner/zsh-autopair?tab=readme-ov-file#oh-my-zsh)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
-- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search?tab=readme-ov-file#install)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
-
-Install **tmux-sessionizer**:
-
-```sh
-$ cargo install tmux-sessionizer
-```
 
 Install **commitizen**:
 

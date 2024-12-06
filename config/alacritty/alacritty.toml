@@ -2,7 +2,7 @@ general.import = ["~/.config/alacritty/themes/themes/carbonfox.toml"]
 
 [window]
 opacity = 0.95
-padding = { x = 0, y = 0 }
+padding = { x = 8, y = 2 }
 dynamic_padding = true
 
 [terminal.shell]
@@ -21,4 +21,3 @@ bindings = [
   { key = "V", mods = "Control|Shift", action = "Paste" },
   { key = "C", mods = "Control|Shift", action = "Copy" },
 ]
-

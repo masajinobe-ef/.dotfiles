@@ -90,8 +90,6 @@ $ sudo chmod +x sym.sh
 $ ./sym.sh
 ```
 
-air.sh for macbook
-
 #### Daemons
 
 Enable and start necessary services:

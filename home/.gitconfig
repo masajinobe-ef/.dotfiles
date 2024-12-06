@@ -58,9 +58,9 @@
     d = diff
     df = "!git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative | fzf | awk '{print $1}' | xargs -I {} git diff {}^ {}"
 
-    hist = log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate --all
-    llog = log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative
+    h = log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate --all
+    l = log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative
 
-    edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; nvim `f`"
-    add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+    edit = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; nvim `f`"
+    addmerge = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
 

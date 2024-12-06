@@ -12,7 +12,7 @@
     helper = store
 
 [core]
-    autocrlf = false
+    autocrlf = true
     editor = nvim
     ignorecase = false
     excludesfile = ~/.gitignore

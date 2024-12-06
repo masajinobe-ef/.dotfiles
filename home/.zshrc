@@ -7,19 +7,23 @@
 export DISABLE_AUTO_TITLE='true'
 export UPDATE_ZSH_DAYS=7
 
-[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+HIST_STAMPS="dd/mm/yyyy"
+
+# p10k
+[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
 zstyle ":omz:update" mode auto
 zstyle ":omz:update" frequency 7
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# tmux
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=true
-
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-HIST_STAMPS="dd/mm/yyyy"
 
 # ==============================================================================
 #                                 Plugins to Load
@@ -31,6 +35,8 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
+
+# zsh-completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 

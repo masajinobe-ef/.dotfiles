@@ -104,7 +104,6 @@ $ sudo systemctl enable cronie.service --now
 $ systemctl --user enable syncthing.service --now
 $ systemctl --user enable mpd.service --now
 
-$ sudo systemctl enable reflector.timer
 $ sudo systemctl enable fstrim.timer
 ```
 
@@ -141,19 +140,6 @@ Section "InputClass"
     Option "AccelProfile" "flat"
     Option "TransformationMatrix" "1 0 0 0 1 0 0 0 2"
 EndSection
-```
-
-Configure reflector (pacman mirrors):
-
-```sh
-$ sudo nvim /etc/xdg/reflector/reflector.conf
-
---save /etc/pacman.d/mirrorlist
---protocol https
---country France,Germany,Finland,Russia,Netherlands
---latest 10
---sort rate
---age 12
 ```
 
 Install Oh My Zsh:

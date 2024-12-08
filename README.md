@@ -32,7 +32,7 @@ To speed up the compilation of packages, edit the `makepkg.conf` file (use _npro
 ```sh
 $ sudo nvim /etc/makepkg.conf
 
-MAKEFLAGS="-j16"
+MAKEFLAGS="-j4"
 ```
 
 #### Pacman
@@ -165,7 +165,6 @@ $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/t
 Consider installing the following plugins for Zsh:
 
 - [powerlevel10k](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh)
-- [zsh-autopair](https://github.com/hlissner/zsh-autopair?tab=readme-ov-file#oh-my-zsh)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
 

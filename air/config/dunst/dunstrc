@@ -4,12 +4,12 @@ monitor = 0
 follow = mouse
 
 ### Geometry ###
-width = (0, 360)
-height = 360
+width = 240
+height = 100
 origin = top-right
-offset = 1x24
+offset = (1, 24)
 scale = 0
-notification_limit = 5
+notification_limit = 3
 
 ### Progress bar ###
 progress_bar = true
@@ -83,13 +83,13 @@ per_monitor_dpi = false
 background = "#FFFFFF"
 foreground = "#000000"
 highlight  = "#000000"
-timeout = 5
+timeout = 10
 
 [urgency_normal]
 background = "#FFFFFF"
 foreground = "#000000"
 highlight  = "#000000"
-timeout = 5
+timeout = 10
 
 [urgency_critical]
 background = "#FFFFFF"

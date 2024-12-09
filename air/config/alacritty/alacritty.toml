@@ -2,7 +2,7 @@ general.import = ["~/.config/alacritty/themes/themes/carbonfox.toml"]
 
 [window]
 opacity = 0.95
-padding = { x = 8, y = 2 }
+padding = { x = 1, y = 0 }
 dynamic_padding = true
 
 [terminal.shell]

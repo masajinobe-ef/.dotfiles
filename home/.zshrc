@@ -44,6 +44,9 @@ source $ZSH/oh-my-zsh.sh
 #                              Environment Variables
 # ==============================================================================
 
+# export CC="ccache gcc"
+# export CXX="ccache g++"
+
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export VISUAL="nvim"

@@ -32,7 +32,7 @@ To speed up the compilation of packages, edit the `makepkg.conf` file (use _npro
 ```sh
 $ sudo nvim /etc/makepkg.conf
 
-MAKEFLAGS="-j16"
+MAKEFLAGS="-j8"
 ```
 
 #### Pacman

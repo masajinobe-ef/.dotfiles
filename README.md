@@ -32,7 +32,7 @@ To speed up the compilation of packages, edit the `makepkg.conf` file (use _npro
 ```sh
 $ sudo nvim /etc/makepkg.conf
 
-MAKEFLAGS="-j8"
+MAKEFLAGS="-j4"
 ```
 
 #### Pacman
@@ -95,7 +95,7 @@ $ ./sym.sh
 Enable and start necessary services:
 
 ```sh
-$ sudo systemctl disable acpid.service --now
+$ sudo systemctl enable acpid.service --now
 $ sudo systemctl enable NetworkManager.service --now
 $ sudo systemctl enable bluetooth.service --now
 $ sudo systemctl enable sshd.service --now
@@ -104,7 +104,6 @@ $ sudo systemctl enable cronie.service --now
 $ systemctl --user enable syncthing.service --now
 $ systemctl --user enable mpd.service --now
 
-$ sudo systemctl enable reflector.timer
 $ sudo systemctl enable fstrim.timer
 ```
 
@@ -143,19 +142,6 @@ Section "InputClass"
 EndSection
 ```
 
-Configure reflector (pacman mirrors):
-
-```sh
-$ sudo nvim /etc/xdg/reflector/reflector.conf
-
---save /etc/pacman.d/mirrorlist
---protocol https
---country France,Germany,Finland,Russia,Netherlands
---latest 10
---sort rate
---age 12
-```
-
 Install Oh My Zsh:
 
 ```sh
@@ -165,7 +151,6 @@ $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/t
 Consider installing the following plugins for Zsh:
 
 - [powerlevel10k](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh)
-- [zsh-autopair](https://github.com/hlissner/zsh-autopair?tab=readme-ov-file#oh-my-zsh)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
 

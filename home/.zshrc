@@ -15,7 +15,7 @@ export ZSH_TMUX_AUTOSTART=true
 export ZSH_TMUX_AUTOCONNECT=true
 
 # History
-export HISTFILE="$HOME/.sh_history"
+export HISTFILE="$HOME/.zsh_history"
 export HIST_STAMPS="dd/mm/yyyy"
 export HISTSIZE=10000000
 export SAVEHIST=10000000

@@ -196,6 +196,7 @@ bindsym Control+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --prev &
 # Screenshot
 bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/screenshot --save &
 bindsym $mod+minus exec --no-startup-id sh ~/.local/scripts/screenshot --clipboard &
+bindsym $mod+backslash exec --no-startup-id sh ~/.local/scripts/screenshot --full &
 
 # Microphone Toggle
 bindsym $mod+grave exec --no-startup-id sh ~/.local/scripts/microphone && $refresh_i3status

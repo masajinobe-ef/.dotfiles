@@ -4,26 +4,39 @@
 #                                 Zsh
 # ==============================================================================
 
-export DISABLE_AUTO_TITLE='true'
+# Zsh settings
+export DISABLE_AUTO_TITLE="true"
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
 export UPDATE_ZSH_DAYS=7
+export ZSH_THEME="powerlevel10k/powerlevel10k"
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+export ZSH_AUTOSUGGEST_USE_ASYNC="true"
+export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_AUTOCONNECT=true
 
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+# History
+export HISTFILE="$HOME/.sh_history"
+export HIST_STAMPS="dd/mm/yyyy"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+unsetopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt EXTENDED_GLOB
+setopt LONG_LIST_JOBS
+setopt AUTO_CD
+setopt AUTO_CONTINUE
+setopt HIST_VERIFY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt TRANSIENT_RPROMPT
+setopt INTERACTIVE_COMMENTS
 
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-HIST_STAMPS="dd/mm/yyyy"
-
-# p10k
-[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# oh-my-zsh
+# Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
 zstyle ":omz:update" mode auto
 zstyle ":omz:update" frequency 7
-
-# tmux
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOCONNECT=true
 
 # ==============================================================================
 #                                 Plugins to Load
@@ -36,7 +49,7 @@ plugins=(
   zsh-syntax-highlighting
 )
 
-# zsh-completions
+# Zsh completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
@@ -47,15 +60,14 @@ source $ZSH/oh-my-zsh.sh
 # export CC="ccache gcc"
 # export CXX="ccache g++"
 
+export LANG=en_US.UTF-8
 export EDITOR="nvim"
 export SUDO_EDITOR="nvim"
 export VISUAL="nvim"
 export BROWSER="chromium"
-
-export LANG=en_US.UTF-8
-export ARCHFLAGS="-arch x86_64"
+export TERMINAL="alacritty"
 export TERM="tmux-256color"
-export RUST_BACKTRACE=1
+export SUDO_PROMPT="passwd: "
 
 export CARGO="$HOME/.cargo/bin"
 export JAVA="/usr/lib/jvm/java-23-openjdk"
@@ -104,10 +116,11 @@ alias uz="unzip"
 alias font="fc-list : family | fzf"
 
 alias orph="sudo pacman -Rns \$(pacman -Qdtq)"
-alias pkgS="pacman -Q | fzf"
-alias pkgI="pacman -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fly {1} | awk \"{print \$2}\")' | xargs -ro sudo pacman -S"
-alias pkgU="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
-alias yayI="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+alias pkgs="pacman -Q | fzf"
+alias pkgi="pacman -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fly {1} | awk \"{print \$2}\")' | xargs -ro sudo pacman -S"
+alias pkgu="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
+
+alias yayi="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
 
 alias l="clear; eza --long --header --tree --icons=always --all --level=1 --group-directories-first --no-permissions --no-user --no-time --no-filesize"
 alias ls="l"
@@ -149,20 +162,13 @@ function yy() {
 }
 
 # ==============================================================================
-#                                Additional Configurations
+#                                Load Modules
 # ==============================================================================
 
 # Load Powerlevel10k
+[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Load Zoxide
 eval "$(zoxide init zsh)"
-
-# Load NVM
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# Load Yandex API (if exists)
-if [ -f '/home/masa/yandex-cloud/path.bash.inc' ]; then source '/home/masa/yandex-cloud/path.bash.inc'; fi
-if [ -f '/home/masa/yandex-cloud/completion.zsh.inc' ]; then source '/home/masa/yandex-cloud/completion.zsh.inc'; fi
 

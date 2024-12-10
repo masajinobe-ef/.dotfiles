@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $# -eq 0 ]]; then
-    echo "Usage: $0 --save | --clipboard"
+    echo "Usage: $0 --save | --clipboard | --full"
     exit 1
 fi
 
@@ -23,7 +23,20 @@ elif [[ "$1" == "--clipboard" ]]; then
         echo "Error: Failed to take screenshot and copy it to clipboard."
         exit 1
     fi
+
+elif [[ "$1" == "--full" ]]; then
+    timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
+    save_dir="${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots"
+    mkdir -p "$save_dir"
+
+    maim "$save_dir/s_full_$timestamp.png"
+
+    if [[ $? -ne 0 ]]; then
+        echo "Error: Failed to take full-screen screenshot and save it."
+        exit 1
+    fi
+
 else
-    echo "Error: Invalid option. Use --save or --clipboard."
+    echo "Error: Invalid option. Use --save, --clipboard, or --full."
     exit 1
 fi

@@ -37,7 +37,7 @@ MAKEFLAGS="-j4"
 
 #### Pacman
 
-Enable parallel downloading of packages by editing the `pacman.conf` file:
+Enable **parallel downloading** of packages by editing the `pacman.conf` file:
 
 ```sh
 $ sudo nvim /etc/pacman.conf
@@ -47,7 +47,7 @@ ParallelDownloads = 8
 
 #### Clone repository
 
-Clone the repository and update submodules:
+Clone the **repository** and update submodules:
 
 ```sh
 $ git clone --depth=1 --recurse-submodules https://github.com/masajinobe-ef/.dotfiles
@@ -82,7 +82,7 @@ yay -S --needed --noconfirm \
 
 #### Copy configuration files
 
-Copy the configuration files to the appropriate directories:
+Copy the **configuration files** to the appropriate directories:
 
 ```sh
 $ sudo chmod +x sym.sh
@@ -91,7 +91,7 @@ $ ./sym.sh
 
 #### Daemons
 
-Enable and start necessary services:
+Enable and start necessary **services**:
 
 ```sh
 $ sudo systemctl enable acpid.service --now
@@ -110,7 +110,7 @@ $ sudo systemctl enable fstrim.timer
 
 #### Setting-up
 
-Add languages to your system:
+Add **languages** to your system:
 
 ```sh
 $ sudo nvim /etc/locale.gen
@@ -120,13 +120,13 @@ ru_RU.UTF-8 UTF-8
 $ sudo locale-gen
 ```
 
-Set the keyboard layout in X11:
+Set the **keyboard** layout in X11:
 
 ```sh
 $ sudo localectl --no-convert set-x11-keymap us,ru pc105+inet qwerty grp:caps_toggle
 ```
 
-Configure the mouse settings:
+Configure the **mouse** settings:
 
 ```sh
 $ sudo nvim /etc/X11/xorg.conf.d/30-pointer.conf
@@ -141,7 +141,7 @@ Section "InputClass"
 EndSection
 ```
 
-Install Oh My Zsh:
+Install **Oh My Zsh**:
 
 ```sh
 $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -157,5 +157,3 @@ Install **commitizen**:
 
 ```sh
 $ npm install -g commitizen cz-conventional-changelog
-```
-

@@ -58,16 +58,22 @@ source $ZSH/oh-my-zsh.sh
 # ==============================================================================
 
 VIM="nvim"
+TERMINAL="alacritty"
 
 export LANG=en_US.UTF-8
+export XDG_SESSION_TYPE=x11
+export SUDO_PROMPT="passwd: "
+
 export EDITOR=$VIM
 export SUDO_EDITOR=$VIM
 export VISUAL=$VIM
 export GIT_EDITOR=$VIM
+
+export TERMINAL=$TERMINAL
+export TERM_PROGRAM=$TERMINAL
+export TERM="screen-256color"
+
 export BROWSER="chromium"
-export TERMINAL="alacritty"
-export TERM="tmux-256color"
-export SUDO_PROMPT="passwd: "
 
 export CARGO="$HOME/.cargo/bin"
 export JAVA="/usr/lib/jvm/java-23-openjdk"

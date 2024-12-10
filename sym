@@ -52,7 +52,16 @@ stow_directory() {
     local dir="$1"
     local target="$2"
     [ ! -d "$dir" ] && exit_with_error "Директория $dir отсутствует."
-    [ ! -d "$target" ] && mkdir -p "$target" || exit_with_error "Не удалось создать директорию $target"
+
+    if [ ! -d "$target" ]; then
+        echo -e "${BLUE}Создаю директорию $target...${NC}"
+        if ! mkdir -p "$target"; then
+            exit_with_error "Не удалось создать директорию $target. Проверьте права доступа."
+        fi
+    else
+        echo -e "${GREEN}Директория $target уже существует.${NC}"
+    fi
+
     echo -e "${BLUE}Создание симлинков из $dir в $target...${NC}"
     if ! stow --dir="$I3_DIR" --target="$target" "$(basename "$dir")"; then
         exit_with_error "Не удалось создать симлинки из $dir в $target" "$(stow --dir="$I3_DIR" --target="$target" "$(basename "$dir")" 2>&1)"

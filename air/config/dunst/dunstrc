@@ -4,7 +4,7 @@ monitor = 0
 follow = mouse
 
 ### Geometry ###
-width = 240
+width = 320
 height = 100
 origin = top-right
 offset = (1, 24)

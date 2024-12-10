@@ -4,8 +4,6 @@
 #                                 Zsh
 # ==============================================================================
 
-if [ "$TMUX" = "" ]; then tmux; fi
-
 # Zsh settings
 export DISABLE_AUTO_TITLE="true"
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
@@ -37,6 +35,12 @@ setopt INTERACTIVE_COMMENTS
 export ZSH="$HOME/.oh-my-zsh"
 zstyle ":omz:update" mode auto
 zstyle ":omz:update" frequency 7
+
+# tmux
+bindkey -s '^t' "tmux new-session -s workflow -n "zsh" "zsh"\n"
+
+# tmux-sessionizer
+bindkey -s '^f' "tmux-sessionizer\n"
 
 # ==============================================================================
 #                                 Plugins to Load

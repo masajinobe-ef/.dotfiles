@@ -85,8 +85,8 @@ yay -S --needed --noconfirm \
 Copy the **configuration files** to the appropriate directories:
 
 ```sh
-$ sudo chmod +x sym.sh
-$ ./sym.sh
+$ sudo chmod +x sym
+$ ./sym
 ```
 
 #### Daemons

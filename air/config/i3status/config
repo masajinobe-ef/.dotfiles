@@ -1,34 +1,28 @@
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║                     i3status Configuration File                      ║
-# ╚══════════════════════════════════════════════════════════════════════╝
-
 general {
         colors = true
         interval = 5
 }
 
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║                          Status Order                                ║
-# ╚══════════════════════════════════════════════════════════════════════╝
-
 order += "wireless _first_"
-order += "volume master"
+order += "ethernet _first_"
 order += "battery all"
+order += "volume master"
 order += "memory"
 order += "tztime local"
 
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║                          Wireless Configuration                      ║
-# ╚══════════════════════════════════════════════════════════════════════╝
-
 wireless _first_ {
-        format_up = "  %essid"
+        format_up = "  %essid (%speed)"
         format_down = "  down"
 }
 
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║                          Volume Configuration                        ║
-# ╚══════════════════════════════════════════════════════════════════════╝
+ethernet _first_ {
+        format_up = "%ip (%speed)"
+        format_down = "E: down"
+}
+
+battery all {
+        format = "  %status %percentage %remaining"
+}
 
 volume master {
         format = "  %volume"
@@ -38,27 +32,11 @@ volume master {
         mixer_idx = 0
 }
 
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║                          Battery Configuration                       ║
-# ╚══════════════════════════════════════════════════════════════════════╝
-
-battery all {
-        format = " %status %percentage %remaining"
-}
-
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║                          Memory Configuration                        ║
-# ╚══════════════════════════════════════════════════════════════════════╝
-
 memory {
         format = "  %used"
         threshold_degraded = "1G"
         format_degraded = "  < %available"
 }
-
-# ╔══════════════════════════════════════════════════════════════════════╗
-# ║                          Time Zone Configuration                     ║
-# ╚══════════════════════════════════════════════════════════════════════╝
 
 tztime local {
         format = "󱑀 %d.%m.%Y %H:%M"

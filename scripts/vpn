@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if pgrep -x "sing-box" > /dev/null; then
+    echo "Stopping existing sing-box process..."
+    sudo pkill sing-box
+else
+    echo "No existing sing-box process found."
+fi
+
+echo "Starting sing-box..."
+sudo sing-box run -c ~/.access.json

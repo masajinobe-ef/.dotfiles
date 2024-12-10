@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 active_win_id=$(xdotool getactivewindow)
 current_state=$(bspc query -T -n "$active_win_id" | jq -r '.client.state')

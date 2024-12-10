@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 MUTE_STATE=$(pactl get-source-mute @DEFAULT_SOURCE@)
 MUTE_ON="yes"

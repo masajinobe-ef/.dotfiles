@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if pgrep -x "sing-box" > /dev/null; then
     echo "Stopping existing sing-box process..."
@@ -8,4 +8,4 @@ else
 fi
 
 echo "Starting sing-box..."
-sudo sing-box run -c ~/.access.json
+sudo sing-box run -c ~/.dotfiles/personal/access.json

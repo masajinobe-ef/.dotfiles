@@ -4,6 +4,8 @@
 #                                 Zsh
 # ==============================================================================
 
+if [ "$TMUX" = "" ]; then tmux; fi
+
 # Zsh settings
 export DISABLE_AUTO_TITLE="true"
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
@@ -11,8 +13,6 @@ export UPDATE_ZSH_DAYS=7
 export ZSH_THEME="powerlevel10k/powerlevel10k"
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export ZSH_AUTOSUGGEST_USE_ASYNC="true"
-export ZSH_TMUX_AUTOSTART=true
-export ZSH_TMUX_AUTOCONNECT=true
 
 # History
 export HISTFILE="$HOME/.zsh_history"
@@ -44,7 +44,6 @@ zstyle ":omz:update" frequency 7
 
 plugins=(
   git
-  tmux
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -60,8 +59,8 @@ source $ZSH/oh-my-zsh.sh
 VIM="nvim"
 TERMINAL="alacritty"
 
-export LANG=en_US.UTF-8
-export XDG_SESSION_TYPE=x11
+export LANG="en_US.UTF-8"
+export XDG_SESSION_TYPE="x11"
 export SUDO_PROMPT="passwd: "
 
 export EDITOR=$VIM

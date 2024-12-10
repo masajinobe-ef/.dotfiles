@@ -153,7 +153,7 @@ exec --no-startup-id pgrep -x feh >/dev/null || feh --recursive --bg-fill --no-f
 bindsym $mod+w exec chromium
 
 # Alacritty
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec alacritty -e "tmux"
 
 # Music Player
 bindsym $mod+m exec alacritty -e "ncmpcpp"

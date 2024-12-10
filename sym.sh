@@ -1,17 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Цвета для вывода
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 BLUE='\033[0;34m'
-NC='\033[0m' # Сброс цвета
+NC='\033[0m'
 
-# Лог-файл
 LOG_FILE="$HOME/.dotfiles_stow.log"
 
-# Константы
 DOTFILES_DIR="$HOME/.dotfiles"
 I3_DIR="$DOTFILES_DIR/i3"
+
+AIR_DIR="$DOTFILES_DIR/air"
+AIR_CONFIG_DIR="$AIR_DIR/config"
 
 BIN_DIR="$I3_DIR/bin"
 SCRIPTS_DIR="$I3_DIR/scripts"
@@ -23,12 +23,10 @@ TARGET_SCRIPTS="$HOME/.local/scripts"
 TARGET_CONFIG="$HOME/.config"
 TARGET_HOME="$HOME"
 
-# Функция логирования
 log_message() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >>"$LOG_FILE"
 }
 
-# Функция обработки ошибок
 exit_with_error() {
     echo -e "${RED}Ошибка: $1${NC}"
     log_message "Ошибка: $1"
@@ -36,11 +34,9 @@ exit_with_error() {
     exit 1
 }
 
-# Удаление симлинков
 delink_directory() {
     local dir="$1"
     local target="$2"
-
     if [ -d "$dir" ]; then
         echo -e "${BLUE}Удаление симлинков из $target...${NC}"
         if ! stow -D --dir="$I3_DIR" --target="$target" "$(basename "$dir")"; then
@@ -52,20 +48,11 @@ delink_directory() {
     fi
 }
 
-# Функция stow
 stow_directory() {
     local dir="$1"
     local target="$2"
-
-    if [ ! -d "$dir" ]; then
-        exit_with_error "Директория $dir отсутствует."
-    fi
-
-    if [ ! -d "$target" ]; then
-        echo -e "${BLUE}Создаётся директория $target...${NC}"
-        mkdir -p "$target" || exit_with_error "Не удалось создать директорию $target"
-    fi
-
+    [ ! -d "$dir" ] && exit_with_error "Директория $dir отсутствует."
+    [ ! -d "$target" ] && mkdir -p "$target" || exit_with_error "Не удалось создать директорию $target"
     echo -e "${BLUE}Создание симлинков из $dir в $target...${NC}"
     if ! stow --dir="$I3_DIR" --target="$target" "$(basename "$dir")"; then
         exit_with_error "Не удалось создать симлинки из $dir в $target" "$(stow --dir="$I3_DIR" --target="$target" "$(basename "$dir")" 2>&1)"
@@ -73,17 +60,21 @@ stow_directory() {
     log_message "Симлинки из $dir успешно созданы в $target."
 }
 
-# Основная логика
 delink_mode=false
+use_air=false
 
 for arg in "$@"; do
     case $arg in
     -d)
         delink_mode=true
         ;;
+    -m)
+        use_air=true
+        ;;
     -h)
-        echo "Использование: $(basename "$0") [--delink] [--help]"
+        echo "Использование: $(basename "$0") [-d] [-m] [-h]"
         echo "  -d   Удалить существующие симлинки."
+        echo "  -m   Использовать директорию AIR вместо I3."
         echo "  -h   Показать это сообщение."
         exit 0
         ;;
@@ -92,6 +83,10 @@ for arg in "$@"; do
         ;;
     esac
 done
+
+if [ "$use_air" = true ]; then
+    CONFIG_DIR="$AIR_CONFIG_DIR"
+fi
 
 if [ "$delink_mode" = true ]; then
     delink_directory "$BIN_DIR" "$TARGET_BIN"
@@ -109,5 +104,4 @@ else
     log_message "Все директории успешно связаны симлинками."
 fi
 
-echo "Нажмите Enter для выхода..."
-read
+read -p "Нажмите Enter для выхода..."

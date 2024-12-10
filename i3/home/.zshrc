@@ -57,13 +57,13 @@ source $ZSH/oh-my-zsh.sh
 #                              Environment Variables
 # ==============================================================================
 
-# export CC="ccache gcc"
-# export CXX="ccache g++"
+VIM="nvim"
 
 export LANG=en_US.UTF-8
-export EDITOR="nvim"
-export SUDO_EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR=$VIM
+export SUDO_EDITOR=$VIM
+export VISUAL=$VIM
+export GIT_EDITOR=$VIM
 export BROWSER="chromium"
 export TERMINAL="alacritty"
 export TERM="tmux-256color"
@@ -86,9 +86,9 @@ alias aliases="alias | fzf"
 
 alias zc="source ~/.zshrc"
 
-alias n="nvim"
-alias v="nvim"
-alias vim="nvim"
+alias n=$VIM
+alias v=$VIM
+alias vim=$VIM
 
 alias g="git"
 alias lg="lazygit"

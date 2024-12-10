@@ -26,18 +26,14 @@ set $refresh_i3status killall -SIGUSR1 i3status
 # Mod Key
 set $mod Mod1
 
-
-
 ### ======================= i3 Bar Configuration ======================= ###
 
 bar {
     position top
     status_command i3status
-
     colors {
         background #282a36
         statusline #f8f8f2
-
         focused_workspace  #ff79c6 #282a36
         active_workspace   #8be9fd #282a36
         inactive_workspace #f8f8f2 #44475a
@@ -52,14 +48,12 @@ client.unfocused              #000000 #000000 #000000
 client.urgent                 #ff5555 #ff5555 #ff5555
 client.placeholder            #282a36 #282a36 #282a36
 
-
-
 ### ======================= i3 Keybindings ======================= ###
 
 # Restart, Reload, Exit, Kill
 bindsym $mod+Control+c reload
 bindsym $mod+Control+r restart
-bindsym $mod+Control+q exec "i3-msg exit"
+bindsym $mod+Control+q exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+q kill
 
 # Switch between workspaces
@@ -90,16 +84,19 @@ bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
 bindsym $mod+Shift+6 move container to workspace number $ws6
 
-# Split Windows
-bindsym $mod+0 split h
-bindsym $mod+9 split v
-
 # Toggle Fullscreen
 bindsym $mod+s fullscreen toggle
 
 # Toggle Floating
 floating_modifier $mod
-bindsym $mod+Shift+f floating toggle
+bindsym Ctrl+Shift+space floating toggle
+
+# Toggle Split (Vertical, Horizontal)
+bindsym $mod+i layout toggle split
+
+# Splits
+bindsym $mod+n split h
+bindsym $mod+v split v
 
 # Resize Focused
 mode "resize" {
@@ -107,14 +104,12 @@ mode "resize" {
     bindsym k resize grow height 5 px or 5 ppt
     bindsym j resize shrink height 5 px or 5 ppt
     bindsym h resize grow width 5 px or 5 ppt
-
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
 }
 
-bindsym $mod+Control+s mode "resize"
-
-
+bindsym $mod+r mode "resize"
 
 ### ======================= Window Rules ======================= ###
 
@@ -125,9 +120,7 @@ assign [class="^TelegramDesktop$"] 3
 
 # Floating and specific Rules for Windows
 for_window [instance="^.*Picture in picture$"] floating enable, sticky enable, border none, resize set 640 360, move position 1920 0
-for_window [class="^MEGAsync$"] floating enable
-
-
+for_window [class="^MEGAsync$"] floating enable, border none
 
 ### ======================= Xorg Settings ======================= ###
 
@@ -140,8 +133,6 @@ exec --no-startup-id xset r rate 180 50
 # Set resolution
 exec --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 144
 
-
-
 ### ======================= User Autorun ======================= ###
 
 exec --no-startup-id pgrep -x telegram-desktop >/dev/null || telegram-desktop &
@@ -149,16 +140,12 @@ exec --no-startup-id pgrep -x chromium >/dev/null || chromium &
 exec --no-startup-id pgrep -x alacritty >/dev/null || alacritty &
 #exec --no-startup-id pgrep -x udiskie >/dev/null || udiskie --no-automount --tray &
 
-
-
 ### ======================= Start Environment ======================= ###
 
 exec --no-startup-id pgrep -x picom >/dev/null || picom --config ~/.config/picom/picom.conf &
 exec --no-startup-id pgrep -x dunst >/dev/null || dunst --config ~/.config/dunst/dunstrc &
 exec --no-startup-id pgrep -x "polkit-gnome-au" >/dev/null || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 exec --no-startup-id pgrep -x feh >/dev/null || feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/* &
-
-
 
 ### ======================= User Keybindings ======================= ###
 
@@ -171,11 +158,8 @@ bindsym $mod+Return exec alacritty
 # Music Player
 bindsym $mod+m exec alacritty -e "ncmpcpp"
 
-# File Manager
-bindsym $mod+e exec alacritty -e "yazi"
-
 # Launcher
-bindsym $mod+r exec --no-startup-id rofi -show combi -combi-modes drun
+bindsym $mod+e exec --no-startup-id rofi -show combi -combi-modes drun
 
 # Zoomer
 bindsym $mod+z exec --no-startup-id ~/.local/bin/boomer

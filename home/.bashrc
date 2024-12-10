@@ -1,7 +1,7 @@
 [[ $- != *i* ]] && return
 
 # History
-export HISTFILE=$HOME/.sh_history
+export HISTFILE=$HOME/.bash_history
 export HISTFILESIZE=
 export HISTSIZE=
 

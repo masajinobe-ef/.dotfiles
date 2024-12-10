@@ -49,6 +49,7 @@
     pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
 
     st = status
+    sub = submodule
 
     br = branch
     ba = branch -a

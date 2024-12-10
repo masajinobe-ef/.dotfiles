@@ -93,10 +93,6 @@ for arg in "$@"; do
     esac
 done
 
-if [ "$use_air" = true ]; then
-    CONFIG_DIR="$AIR_CONFIG_DIR"
-fi
-
 if [ "$delink_mode" = true ]; then
     delink_directory "$BIN_DIR" "$TARGET_BIN"
     delink_directory "$SCRIPTS_DIR" "$TARGET_SCRIPTS"
@@ -105,6 +101,9 @@ if [ "$delink_mode" = true ]; then
     echo -e "${GREEN}Все симлинки успешно удалены.${NC}"
     log_message "Все симлинки успешно удалены."
 else
+    if [ "$use_air" = true ]; then
+        CONFIG_DIR="$AIR_CONFIG_DIR"
+    fi
     stow_directory "$BIN_DIR" "$TARGET_BIN"
     stow_directory "$SCRIPTS_DIR" "$TARGET_SCRIPTS"
     stow_directory "$CONFIG_DIR" "$TARGET_CONFIG"

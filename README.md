@@ -27,7 +27,7 @@ $ cd ~ && rm -rf yay
 
 #### Makepkg
 
-To speed up the compilation of packages, edit the `makepkg.conf` file (use _nproc_ for see amount of CPU cores):
+To **speed up the compilation** of packages, edit the `makepkg.conf` file (use _nproc_ for see amount of CPU cores):
 
 ```sh
 $ sudo nvim /etc/makepkg.conf

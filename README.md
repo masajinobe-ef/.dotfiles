@@ -43,7 +43,6 @@ Enable parallel downloading of packages by editing the `pacman.conf` file:
 $ sudo nvim /etc/pacman.conf
 
 ParallelDownloads = 8
-Color
 ```
 
 #### Clone repository
@@ -160,8 +159,3 @@ Install **commitizen**:
 $ npm install -g commitizen cz-conventional-changelog
 ```
 
-Install **nvm**:
-
-```sh
-$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-```

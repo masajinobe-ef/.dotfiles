@@ -51,6 +51,7 @@ plugins=(
   git
   fzf
   tmux
+  zoxide
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -62,9 +63,6 @@ source $ZSH/oh-my-zsh.sh
 # Load Powerlevel10k
 [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Load Zoxide
-eval "$(zoxide init zsh)"
 
 # ==============================================================================
 #                                 Hotkeys

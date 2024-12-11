@@ -12,6 +12,11 @@ export ZSH_THEME="powerlevel10k/powerlevel10k"
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
+# Oh My Zsh
+export ZSH="$HOME/.oh-my-zsh"
+zstyle ":omz:update" mode auto
+zstyle ":omz:update" frequency 7
+
 # History
 export HISTFILE="$HOME/.zsh_history"
 export HIST_STAMPS="dd/mm/yyyy"
@@ -35,10 +40,8 @@ setopt AUTO_CONTINUE
 setopt TRANSIENT_RPROMPT
 setopt INTERACTIVE_COMMENTS
 
-# Oh My Zsh
-export ZSH="$HOME/.oh-my-zsh"
-zstyle ":omz:update" mode auto
-zstyle ":omz:update" frequency 7
+# fzf
+export FZF_DEFAULT_COMMAND='rg'
 
 # ==============================================================================
 #                                 Plugins to Load
@@ -47,6 +50,7 @@ zstyle ":omz:update" frequency 7
 plugins=(
   git
   fzf
+  tmux
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
@@ -55,11 +59,18 @@ plugins=(
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
+# Load Powerlevel10k
+[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Load Zoxide
+eval "$(zoxide init zsh)"
+
 # ==============================================================================
 #                                 Hotkeys
 # ==============================================================================
 
-bindkey -s '^t' 'tmux has-session -t WORKFLOW 2>/dev/null && tmux attach-session -t WORKFLOW || tmux new-session -s WORKFLOW -n "zsh" "zsh"\n'
+bindkey -s '^e' 'tmux-workflow\n'
 bindkey -s '^f' "tmux-sessionizer\n"
 
 # ==============================================================================
@@ -109,7 +120,7 @@ export GIT_EDITOR=$NVIM
 
 export TERMINAL=$TER
 export TERM_PROGRAM=$TER
-export TERM="screen-256color"
+export TERM=$ZSH_TMUX_TERM
 
 export BROWSER="thorium-browser"
 
@@ -170,15 +181,4 @@ alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias mirror-update="sudo reflector --verbose --protocol https --age 12 --sort rate --latest 10 --country France,Germany,Finland,Russia,Netherlands --save /etc/pacman.d/mirrorlist"
 alias dun='killall dunst && dunst & notify-send "cool2" "yeah it is working" && notify-send "cool2" "yeah it is working"'
-
-# ==============================================================================
-#                                 Load Modules
-# ==============================================================================
-
-# Load Powerlevel10k
-[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Load Zoxide
-eval "$(zoxide init zsh)"
 

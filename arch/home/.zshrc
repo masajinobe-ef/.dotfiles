@@ -68,7 +68,7 @@ source $ZSH/oh-my-zsh.sh
 #                                 Hotkeys
 # ==============================================================================
 
-bindkey -s '^e' 'tmux-workflow\n'
+bindkey -s '^e' "tmux-workflow\n"
 bindkey -s '^f' "tmux-sessionizer\n"
 
 # ==============================================================================

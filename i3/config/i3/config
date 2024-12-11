@@ -4,7 +4,6 @@
 font pango:JetBrainsMono Nerd Font 10
 
 # Window Borders
-for_window [class="^.*"] border pixel 3
 default_border pixel 3
 default_floating_border none
 
@@ -120,7 +119,8 @@ assign [class="^TelegramDesktop$"] 3
 
 # Floating and specific Rules for Windows
 for_window [instance="^.*Picture in picture$"] floating enable, sticky enable, border none, resize set 640 360, move position 1920 0
-for_window [class="^MEGAsync$"] floating enable, border none
+for_window [class="^.MEGAsync$"] floating enable, border none
+#for_window [class="^.*"] border pixel 3
 
 ### ======================= Xorg Settings ======================= ###
 

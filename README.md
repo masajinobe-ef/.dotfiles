@@ -71,7 +71,7 @@ yay -S --needed --noconfirm \
     xdg-user-dirs yazi perl-image-exiftool ueberzugpp imagemagick \
     thunar tumbler ffmpegthumbnailer polkit-gnome \
     lxappearance-gtk3 neovim mpv mpd mpdris2 ncmpcpp mpc \
-    tmux tmuxp ghq rainfrog syncthing git lazygit stow yt-dlp \
+    tmux tmuxp tldr ghq rainfrog syncthing git lazygit stow yt-dlp \
     ffmpeg fastfetch btop eza fzf fd ripgrep bat bat-extras \
     rsync curl wget maim xdotool xclip zoxide aria2 hyperfine \
     xsel reflector jq man-db poppler ccache go rustup nodejs \

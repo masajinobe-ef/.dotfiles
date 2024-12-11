@@ -4,7 +4,7 @@
 #                                 Zsh
 # ==============================================================================
 
-# Zsh settings
+# Zsh Settings
 export DISABLE_AUTO_TITLE="true"
 export DISABLE_UNTRACKED_FILES_DIRTY="true"
 export UPDATE_ZSH_DAYS=7
@@ -20,14 +20,18 @@ export SAVEHIST=10000000
 unsetopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY
+setopt HIST_NO_STORE
+setopt HIST_REDUCE_BLANKS
+setopt APPEND_HISTORY
 setopt EXTENDED_GLOB
 setopt LONG_LIST_JOBS
 setopt AUTO_CD
 setopt AUTO_CONTINUE
-setopt HIST_VERIFY
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_SAVE_NO_DUPS
 setopt TRANSIENT_RPROMPT
 setopt INTERACTIVE_COMMENTS
 
@@ -36,118 +40,34 @@ export ZSH="$HOME/.oh-my-zsh"
 zstyle ":omz:update" mode auto
 zstyle ":omz:update" frequency 7
 
-# tmux
-bindkey -s '^e' 'tmux has-session -t WORKFLOW 2>/dev/null && tmux attach-session -t WORKFLOW || tmux new-session -s WORKFLOW -n "zsh" "zsh"\n'
-
-# tmux-sessionizer
-bindkey -s '^f' "tmux-sessionizer\n"
-
 # ==============================================================================
 #                                 Plugins to Load
 # ==============================================================================
 
 plugins=(
   git
+  fzf
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
-# Zsh completions
+# Zsh Completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
 # ==============================================================================
-#                              Environment Variables
+#                                 Hotkeys
 # ==============================================================================
 
-VIM="nvim"
-TERMINAL="alacritty"
-
-export LANG="en_US.UTF-8"
-export XDG_SESSION_TYPE="x11"
-export SUDO_PROMPT="passwd: "
-
-export EDITOR=$VIM
-export SUDO_EDITOR=$VIM
-export VISUAL=$VIM
-export GIT_EDITOR=$VIM
-
-export TERMINAL=$TERMINAL
-export TERM_PROGRAM=$TERMINAL
-export TERM="screen-256color"
-
-export BROWSER="thorium-browser"
-
-export CARGO="$HOME/.cargo/bin"
-export JAVA="/usr/lib/jvm/java-23-openjdk"
-export SCRIPTS="$HOME/.local/scripts"
-export BIN="$HOME/.local/bin"
-
-export PATH="$CARGO:$JAVA:$SCRIPTS:$BIN:$PATH"
-
-. "$HOME/.cargo/env"
+bindkey -s '^t' 'tmux has-session -t WORKFLOW 2>/dev/null && tmux attach-session -t WORKFLOW || tmux new-session -s WORKFLOW -n "zsh" "zsh"\n'
+bindkey -s '^f' "tmux-sessionizer\n"
 
 # ==============================================================================
-#                                    Aliases
+#                                 Functions
 # ==============================================================================
 
-alias aliases="alias | fzf"
-
-alias zc="source ~/.zshrc"
-
-alias n=$VIM
-alias v=$VIM
-alias vim=$VIM
-
-alias g="git"
-alias lg="lazygit"
-
-alias b="bat"
-
-alias grep="rg"
-
-alias c="clear"
-alias cls="clear"
-alias mv="mv -v"
-alias rm="rm -rfv"
-alias cp="cp -vr"
-alias mkdir="mkdir -p"
-
-alias tgz="tar -cvvzf"
-alias tbz2="tar -cvvjf"
-alias utgz="tar -xvvzf"
-alias utbz2="tar -xvvjf"
-alias mktar="tar -cvvf"
-alias untar="tar -xvvf"
-alias zz="zip -r"
-alias uz="unzip"
-
-alias font="fc-list : family | fzf"
-
-alias orph="sudo pacman -Rns \$(pacman -Qdtq)"
-alias pkgs="pacman -Q | fzf"
-alias pkgi="pacman -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fly {1} | awk \"{print \$2}\")' | xargs -ro sudo pacman -S"
-alias pkgu="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
-
-alias yayi="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
-
-alias l="clear; eza --long --header --tree --icons=always --all --level=1 --group-directories-first --no-permissions --no-user --no-time --no-filesize"
-alias ls="l"
-
-alias dun='killall dunst && dunst & notify-send "cool2" "yeah it is working" && notify-send "cool2" "yeah it is working"'
-
-alias ipv4="ip addr show | grep 'inet ' | grep -v '127.0.0.1' | cut -d' ' -f6 | cut -d/ -f1"
-alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"
-
-alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias mirror-update="sudo reflector --verbose --protocol https --age 12 --sort rate --latest 10 --country France,Germany,Finland,Russia,Netherlands --save /etc/pacman.d/mirrorlist"
-
-# ==============================================================================
-#                                  Functions
-# ==============================================================================
-
-# search
-function zs() {
+# Fuzzy Search
+function s() {
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then nvim {1} +{2}; else nvim +cw -q {+f}; fi'
   fzf --disabled --ansi --multi \
@@ -160,7 +80,7 @@ function zs() {
       --query "$@"
 }
 
-# yazi
+# Yazi
 function yy() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   yazi "$@" --cwd-file="$tmp"
@@ -171,7 +91,88 @@ function yy() {
 }
 
 # ==============================================================================
-#                                Load Modules
+#                              Environment Variables
+# ==============================================================================
+
+# Const
+NVIM="nvim"
+TER="alacritty"
+
+export LANG="en_US.UTF-8"
+export XDG_SESSION_TYPE="x11"
+export SUDO_PROMPT="pass: "
+
+export EDITOR=$NVIM
+export SUDO_EDITOR=$NVIM
+export VISUAL=$NVIM
+export GIT_EDITOR=$NVIM
+
+export TERMINAL=$TER
+export TERM_PROGRAM=$TER
+export TERM="screen-256color"
+
+export BROWSER="thorium-browser"
+
+export JAVA="/usr/lib/jvm/java-23-openjdk"
+export CARGO="$HOME/.cargo/bin"
+export SCRIPTS="$HOME/.local/scripts"
+export BIN="$HOME/.local/bin"
+
+export PATH="$CARGO:$JAVA:$SCRIPTS:$BIN:$PATH"
+
+. "$HOME/.cargo/env"
+
+# ==============================================================================
+#                                 Aliases
+# ==============================================================================
+
+# Reload Zsh Config
+alias zc="source ~/.zshrc"
+
+# Editor
+alias n=$NVIM
+alias v=$NVIM
+alias vim=$NVIM
+
+# Git
+alias g="git"
+alias lg="lazygit"
+
+# Default Tools
+alias mv="mv -v"
+alias rm="rm -rfv"
+alias cp="cp -vr"
+alias mkdir="mkdir -p"
+alias l="clear; eza --long --header --tree --icons=always --all --level=1 --group-directories-first --no-permissions --no-user --no-time --no-filesize"
+alias ls="l"
+
+# Archive
+alias untar="tar -xvvf"
+alias zz="zip -r"
+alias uz="unzip"
+
+# Find Something
+alias ft="fc-list : family | fzf"
+alias as="alias | fzf"
+
+# Package Managment
+alias orph="sudo pacman -Rns \$(pacman -Qdtq)"
+alias pkgs="pacman -Q | fzf"
+alias pkgi="pacman -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fly {1} | awk \"{print \$2}\")' | xargs -ro sudo pacman -S"
+alias pkgu="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
+alias yayi="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+
+# IP
+alias ipv4="ip addr show | grep 'inet ' | grep -v '127.0.0.1' | cut -d' ' -f6 | cut -d/ -f1"
+alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"
+
+# Other
+alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias mirror-update="sudo reflector --verbose --protocol https --age 12 --sort rate --latest 10 --country France,Germany,Finland,Russia,Netherlands --save /etc/pacman.d/mirrorlist"
+alias dun='killall dunst && dunst & notify-send "cool2" "yeah it is working" && notify-send "cool2" "yeah it is working"'
+
+# ==============================================================================
+#                                 Load Modules
 # ==============================================================================
 
 # Load Powerlevel10k

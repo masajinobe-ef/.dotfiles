@@ -37,7 +37,7 @@ zstyle ":omz:update" mode auto
 zstyle ":omz:update" frequency 7
 
 # tmux
-bindkey -s '^t' "tmux new-session -s workflow -n "zsh" "zsh"\n"
+bindkey -s '^t' 'tmux has-session -t WORKFLOW 2>/dev/null && tmux attach-session -t WORKFLOW || tmux new-session -s WORKFLOW -n "zsh" "zsh"\n'
 
 # tmux-sessionizer
 bindkey -s '^f' "tmux-sessionizer\n"

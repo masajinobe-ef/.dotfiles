@@ -24,9 +24,6 @@
     postBuffer = 157286400
     version = HTTP/2
 
-[safe]
-    directory = /opt/zapret
-
 [pull]
     rebase = false
 

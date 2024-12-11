@@ -95,8 +95,8 @@ bindsym Ctrl+Shift+space floating toggle
 bindsym $mod+i layout toggle split
 
 # Splits
-bindsym $mod+n split h
-bindsym $mod+v split v
+#bindsym $mod+n split h
+#bindsym $mod+v split v
 
 # Resize Focused
 mode "resize" {

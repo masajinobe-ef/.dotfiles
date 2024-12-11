@@ -158,3 +158,10 @@ Install **commitizen**:
 ```sh
 $ npm install -g commitizen cz-conventional-changelog
 ```
+
+Install **uv**:
+
+```sh
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+

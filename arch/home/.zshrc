@@ -68,6 +68,8 @@ source $ZSH/oh-my-zsh.sh
 #                                 Hotkeys
 # ==============================================================================
 
+bindkey -s '^n' "nvim "
+bindkey -s '^s' "zs "
 bindkey -s '^e' "tmux-workflow\n"
 bindkey -s '^f' "tmux-sessionizer\n"
 
@@ -76,7 +78,7 @@ bindkey -s '^f' "tmux-sessionizer\n"
 # ==============================================================================
 
 # Fuzzy Search
-function s() {
+function zs() {
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then nvim {1} +{2}; else nvim +cw -q {+f}; fi'
   fzf --disabled --ansi --multi \

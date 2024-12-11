@@ -8,9 +8,6 @@ NC='\033[0m'
 DOTFILES_DIR="$HOME/.dotfiles"
 I3_DIR="$DOTFILES_DIR/i3"
 
-AIR_DIR="$DOTFILES_DIR/air"
-AIR_CONFIG_DIR="$AIR_DIR/config"
-
 BIN_DIR="$I3_DIR/bin"
 SCRIPTS_DIR="$I3_DIR/scripts"
 CONFIG_DIR="$I3_DIR/config"
@@ -61,21 +58,15 @@ stow_directory() {
 }
 
 delink_mode=false
-use_air=false
 
 for arg in "$@"; do
     case $arg in
     -d)
         delink_mode=true
         ;;
-    -m)
-        use_air=true
-        ;;
     -h)
         echo "Usage: $(basename "$0") [-d] [-m] [-h]"
         echo "  -d   Remove existing symlinks."
-        echo "  -m   Use the AIR directory instead of I3."
-        echo "  -h   Show this message."
         exit 0
         ;;
     *)
@@ -91,9 +82,6 @@ if [ "$delink_mode" = true ]; then
     delink_directory "$HOME_DIR" "$TARGET_HOME"
     echo -e "${GREEN}All symlinks successfully removed.${NC}"
 else
-    if [ "$use_air" = true ]; then
-        CONFIG_DIR="$AIR_CONFIG_DIR"
-    fi
     stow_directory "$BIN_DIR" "$TARGET_BIN"
     stow_directory "$SCRIPTS_DIR" "$TARGET_SCRIPTS"
     stow_directory "$CONFIG_DIR" "$TARGET_CONFIG"

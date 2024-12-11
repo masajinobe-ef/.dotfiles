@@ -22,7 +22,7 @@ export HISTFILE="$HOME/.zsh_history"
 export HIST_STAMPS="dd/mm/yyyy"
 export HISTSIZE=10000000
 export SAVEHIST=10000000
-unsetopt EXTENDED_HISTORY
+setopt EXTENDED_HISTORY
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_DUPS

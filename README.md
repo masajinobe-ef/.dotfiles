@@ -1,16 +1,16 @@
 # .dotfiles
 
-|       OS       |               [Arch Linux](https://archlinux.org/)               |
-| :------------: | :--------------------------------------------------------------: |
-|   AUR Helper   |               [yay](https://github.com/Jguer/yay)                |
-|     Shell      |                     [zsh](https://ohmyz.sh)                      |
-| Window Manager |                  [i3](https://github.com/i3/i3)                  |
-|   Compositor   |             [picom](https://github.com/yshui/picom)              |
-|      Menu      |            [rofi](https://github.com/davatorium/rofi)            |
-|    Terminal    |       [alacritty](https://github.com/alacritty/alacritty)        |
-|  File Manager  |            [yazi / thunar](https://yazi-rs.github.io)            |
-|    Browser     | [chromium](https://archlinux.org/packages/extra/x86_64/chromium) |
-|  Text Editor   |                   [neovim](https://neovim.io)                    |
+|       OS       |        [Arch Linux](https://archlinux.org/)         |
+| :------------: | :-------------------------------------------------: |
+|   AUR Helper   |         [yay](https://github.com/Jguer/yay)         |
+|     Shell      |               [zsh](https://ohmyz.sh)               |
+| Window Manager |           [i3](https://github.com/i3/i3)            |
+|   Compositor   |       [picom](https://github.com/yshui/picom)       |
+|      Menu      |     [rofi](https://github.com/davatorium/rofi)      |
+|    Terminal    | [alacritty](https://github.com/alacritty/alacritty) |
+|  File Manager  |     [yazi / thunar](https://yazi-rs.github.io)      |
+|    Browser     |  [thorium](https://github.com/Alex313031/thorium)   |
+|  Text Editor   |             [neovim](https://neovim.io)             |
 
 ### Installation
 
@@ -63,7 +63,7 @@ $ cd .dotfiles && git submodule update --remote --merge
 ```sh
 yay -S --needed --noconfirm \
     xorg-server xorg-xinit xorg-xrandr xorg-xsetroot xorg-xset \
-    i3-wm i3status rofi chromium alacritty zsh dunst libnotify picom feh \
+    i3-wm i3status rofi thorium-browser-bin alacritty zsh dunst libnotify picom feh \
     vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader \
     lib32-vulkan-icd-loader mesa mesa-utils mesa-vdpau \
     libva-mesa-driver lib32-mesa networkmanager nm-connection-editor \
@@ -157,3 +157,4 @@ Install **commitizen**:
 
 ```sh
 $ npm install -g commitizen cz-conventional-changelog
+```

@@ -115,7 +115,7 @@ bindsym $mod+r mode "resize"
 
 # Assign Applications to Workspaces
 assign [class="^Alacritty$"] 1
-assign [class="^Chromium$"] 2
+assign [class="^Thorium-browser$"] 2
 assign [class="^TelegramDesktop$"] 3
 
 # Floating and specific Rules for Windows
@@ -136,7 +136,7 @@ exec --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 144
 ### ======================= User Autorun ======================= ###
 
 exec --no-startup-id pgrep -x telegram-desktop >/dev/null || telegram-desktop &
-exec --no-startup-id pgrep -x chromium >/dev/null || chromium &
+exec --no-startup-id pgrep -x thorium-browser >/dev/null || thorium-browser &
 exec --no-startup-id pgrep -x alacritty >/dev/null || alacritty &
 #exec --no-startup-id pgrep -x udiskie >/dev/null || udiskie --no-automount --tray &
 
@@ -149,10 +149,10 @@ exec --no-startup-id pgrep -x feh >/dev/null || feh --recursive --bg-fill --no-f
 
 ### ======================= User Keybindings ======================= ###
 
-# Chromium
-bindsym $mod+w exec chromium
+# Browser
+bindsym $mod+w exec thorium-browser
 
-# Alacritty
+# Terminal
 bindsym $mod+Return exec alacritty
 
 # Music Player

@@ -76,7 +76,7 @@ export TERMINAL=$TERMINAL
 export TERM_PROGRAM=$TERMINAL
 export TERM="screen-256color"
 
-export BROWSER="chromium"
+export BROWSER="thorium-browser"
 
 export CARGO="$HOME/.cargo/bin"
 export JAVA="/usr/lib/jvm/java-23-openjdk"

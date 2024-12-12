@@ -1,5 +1,10 @@
 # .dotfiles
 
+#### Keymaps
+
+[i3](/i3.md)
+[tmux](/tmux.md)
+
 |       OS       |        [Arch Linux](https://archlinux.org/)         |
 | :------------: | :-------------------------------------------------: |
 |   AUR Helper   |         [yay](https://github.com/Jguer/yay)         |
@@ -11,6 +16,8 @@
 |  File Manager  |     [yazi / thunar](https://yazi-rs.github.io)      |
 |    Browser     |  [thorium](https://github.com/Alex313031/thorium)   |
 |  Text Editor   |             [neovim](https://neovim.io)             |
+
+---
 
 ### Installation
 
@@ -80,15 +87,6 @@ yay -S --needed --noconfirm \
     papirus-icon-theme
 ```
 
-#### Copy configuration files
-
-Copy the **configuration files** to the appropriate directories:
-
-```sh
-$ sudo chmod +x sym.sh
-$ ./sym.sh
-```
-
 #### Daemons
 
 Enable and start necessary **services**:
@@ -104,6 +102,30 @@ $ systemctl --user enable syncthing.service --now
 $ systemctl --user enable mpd.service --now
 
 $ sudo systemctl enable fstrim.timer
+```
+
+Install **Oh My Zsh**:
+
+```sh
+$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+Consider installing the following plugins for Zsh:
+
+- [powerlevel10k](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh)
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
+
+Install **commitizen**:
+
+```sh
+$ npm install -g commitizen cz-conventional-changelog
+```
+
+Install **uv**:
+
+```sh
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ---
@@ -139,29 +161,5 @@ Section "InputClass"
     Option "AccelProfile" "flat"
     Option "TransformationMatrix" "1 0 0 0 1 0 0 0 2"
 EndSection
-```
-
-Install **Oh My Zsh**:
-
-```sh
-$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-Consider installing the following plugins for Zsh:
-
-- [powerlevel10k](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh)
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
-
-Install **commitizen**:
-
-```sh
-$ npm install -g commitizen cz-conventional-changelog
-```
-
-Install **uv**:
-
-```sh
-$ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 

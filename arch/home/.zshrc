@@ -40,9 +40,6 @@ setopt AUTO_CONTINUE
 setopt TRANSIENT_RPROMPT
 setopt INTERACTIVE_COMMENTS
 
-# fzf
-export FZF_DEFAULT_COMMAND='rg'
-
 # ==============================================================================
 #                                 Plugins to Load
 # ==============================================================================
@@ -79,7 +76,8 @@ source $ZSH/oh-my-zsh.sh
 # ==============================================================================
 
 bindkey -s '^n' "nvim "
-bindkey -s '^s' "zs "
+bindkey -s '^s' "zsf "
+bindkey -s '^d' "zsd\n"
 bindkey -s '^e' "tmux-workflow\n"
 bindkey -s '^f' "tmux-sessionizer\n"
 
@@ -88,7 +86,7 @@ bindkey -s '^f' "tmux-sessionizer\n"
 # ==============================================================================
 
 # Fuzzy Search
-function zs() {
+function zsf() {
   RELOAD='reload:rg --column --color=always --smart-case {q} || :'
   OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then nvim {1} +{2}; else nvim +cw -q {+f}; fi'
   fzf --disabled --ansi --multi \
@@ -99,6 +97,14 @@ function zs() {
       --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
       --preview-window '~4,+{2}+4/3,<80(up)' \
       --query "$@"
+}
+
+function zsd() {
+  local dir
+  dir=$(find . -maxdepth 10 -type d ! -path '*/.git*' ! -path '*/node_modules*' | fzf)
+  if [[ -n "$dir" ]]; then
+    cd "$dir"
+  fi
 }
 
 # Yazi

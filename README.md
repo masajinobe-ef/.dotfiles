@@ -2,8 +2,8 @@
 
 #### Keymaps
 
-[i3](/i3.md)
-[tmux](/tmux.md)
+- [i3](/i3.md)
+- [tmux](/tmux.md)
 
 |       OS       |        [Arch Linux](https://archlinux.org/)         |
 | :------------: | :-------------------------------------------------: |

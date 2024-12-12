@@ -12,14 +12,14 @@ if [[ "$1" == "--save" ]]; then
 
     maim -s "$save_dir/s_$timestamp.png"
 
-    if [[ $? -ne 0 ]]; then
+    if ! mycmd; then
         echo "Error: Failed to take screenshot and save it."
         exit 1
     fi
 
 elif [[ "$1" == "--clipboard" ]]; then
     maim -s | xclip -selection clipboard -t image/png -i
-    if [[ $? -ne 0 ]]; then
+    if ! mycmd; then
         echo "Error: Failed to take screenshot and copy it to clipboard."
         exit 1
     fi
@@ -31,7 +31,7 @@ elif [[ "$1" == "--full" ]]; then
 
     maim "$save_dir/s_full_$timestamp.png"
 
-    if [[ $? -ne 0 ]]; then
+    if ! mycmd; then
         echo "Error: Failed to take full-screen screenshot and save it."
         exit 1
     fi

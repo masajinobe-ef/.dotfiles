@@ -15,7 +15,7 @@ check_and_install_packages() {
         if ! pacman -qq "$pkg" &>/dev/null; then
             echo "Installing $pkg..."
             sudo pacman -s --noconfirm "$pkg"
-            if [ $? -ne 0 ]; then
+            if ! mycmd; then
                 echo "Error: failed to install package $pkg. Make sure you have internet access and root privileges."
                 exit 1
             fi
@@ -70,7 +70,7 @@ download_iso() {
 
     echo "Downloading $distro from $url..."
     curl -o "$iso_path" "$url"
-    if [ $? -eq 0 ]; then
+    if ! mycmd; then
         echo "$distro image successfully downloaded to $iso_path"
     else
         echo "Error downloading $distro image"
@@ -132,7 +132,7 @@ fi
 if [ ! -f "$disk_image" ]; then
     echo "Creating virtual disk of size $disk_size..."
     qemu-img create -f qcow2 "$disk_image" "$disk_size"
-    if [ $? -ne 0 ]; then
+    if ! mycmd; then
         echo "Error creating virtual disk."
         exit 1
     fi
@@ -149,7 +149,7 @@ qemu-system-x86_64 \
     -display default \
     -net nic -net user
 
-if [ $? -ne 0 ]; then
+if ! mycmd; then
     echo "Error launching the virtual machine."
     exit 1
 fi

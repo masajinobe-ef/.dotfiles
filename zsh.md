@@ -8,4 +8,3 @@
 | fzf directory    | `Alt + c`        |
 | fuzzy search     | `Control + s`    |
 | fuzzy directory  | `Control + d`    |
-

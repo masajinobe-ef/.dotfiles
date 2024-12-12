@@ -162,4 +162,3 @@ Section "InputClass"
     Option "TransformationMatrix" "1 0 0 0 1 0 0 0 2"
 EndSection
 ```
-

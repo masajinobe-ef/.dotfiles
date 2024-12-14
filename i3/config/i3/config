@@ -167,7 +167,7 @@ bindsym $mod+z exec ~/.local/bin/boomer
 # Power Managment
 bindsym $mod+F6 exec --no-startup-id systemctl poweroff
 bindsym $mod+F7 exec --no-startup-id systemctl reboot
-bindsym $mod+F8 exec --no-startup-id systemctl suspend
+bindsym $mod+F8 exec --no-startup-id systemctl suspend --no-block
 
 # WIFI Menu
 bindsym $mod+F5 exec --no-startup-id sh ~/.local/scripts/rofi-wifi-menu &

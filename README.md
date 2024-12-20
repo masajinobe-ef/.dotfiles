@@ -120,7 +120,7 @@ Consider installing the following plugins for Zsh:
 Install **commitizen**:
 
 ```sh
-$ npm install -g commitizen cz-conventional-changelog
+$ npm install -g commitizen cz-conventional-changelog cz-customizable
 ```
 
 Install **uv**:

@@ -196,3 +196,10 @@ alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias mirrors="sudo sh ~/.local/scripts/reflector"
 alias dun='killall dunst && dunst & notify-send "cool2" "yeah it is working" && notify-send "cool2" "yeah it is working"'
 
+# pnpm
+export PNPM_HOME="/home/masa/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

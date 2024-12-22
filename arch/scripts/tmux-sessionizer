@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 switch_to() {
     if [[ -z "$TMUX" ]]; then
         tmux attach-session -t "$1"

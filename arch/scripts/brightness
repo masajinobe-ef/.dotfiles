@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 BRIGHTNESS_STEPS=5
 
 case $1 in

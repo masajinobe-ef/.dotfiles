@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 vm_name="linux_vm"
 iso_path="./linux.iso"
 disk_image="./linux_vm.img"

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 notify-send "Getting list of available Wi-Fi networks..."
 
 wifi_list=$(nmcli --fields "SECURITY,SSID" device wifi list | tail -n +2 | sed 's/  */ /g' | sed -E "s/WPA*.?\S/ /g" | sed "s/^--/ /g" | sed "s/  //g" | sed "/--/d")

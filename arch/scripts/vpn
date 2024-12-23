@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 if pgrep -x "sing-box" >/dev/null; then
     echo "Stopping existing sing-box process..."
     sudo pkill sing-box

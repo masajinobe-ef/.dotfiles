@@ -193,6 +193,13 @@ alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"
 
 # Other
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias mirror-update="sudo reflector --verbose --protocol https --age 12 --sort rate --latest 10 --country France,Germany,Finland,Russia,Netherlands --save /etc/pacman.d/mirrorlist"
+alias mirrors="sudo sh ~/.local/scripts/reflector"
 alias dun='killall dunst && dunst & notify-send "cool2" "yeah it is working" && notify-send "cool2" "yeah it is working"'
 
+# pnpm
+export PNPM_HOME="/home/masa/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

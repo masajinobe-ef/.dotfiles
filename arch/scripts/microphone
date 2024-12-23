@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 MUTE_STATE=$(pactl get-source-mute @DEFAULT_SOURCE@)
 MUTE_ON="yes"
 MIC_ICON="/usr/share/icons/Papirus-Dark/48x48/devices/audio-input-microphone.svg"

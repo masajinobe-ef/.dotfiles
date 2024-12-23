@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 HOST="mpdsecret@127.0.0.1"
 PORT="660160"
 

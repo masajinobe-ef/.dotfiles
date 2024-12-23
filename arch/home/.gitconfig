@@ -9,7 +9,7 @@
     user = masajinobe-ef
 
 [credential]
-    helper = store
+	helper = store
 
 [core]
     autocrlf = input

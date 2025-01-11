@@ -14,28 +14,26 @@ cache_dir = "~/.cache/yazi"
 
 [opener]
 edit_nvim = [
-    { run = '${EDITOR:=nvim} "$@"', desc = "Edit with Neovim", block = true },
+    { run = '${EDITOR:=nvim} "$@"', desc = "Edit (nvim)", block = true },
 ]
-play = [
-    { run = 'mpv --force-window "$@"', desc = "Play with mpv", orphan = true },
-]
+play = [{ run = 'mpv --force-window "$@"', desc = "Play (mpv)", orphan = true }]
 view = [
-    { run = 'feh --draw-filename --fullscreen --no-fehbg "$@"', desc = "View with feh", block = true },
+    { run = 'feh --draw-filename --fullscreen --no-fehbg "$@"', desc = "View (feh)", block = true },
 ]
 reveal = [
-    { run = 'alacritty --working-directory="$(dirname "$1")" &', desc = "Reveal", orphan = true },
+    { run = 'alacritty --working-directory="$(dirname "$1")" &', desc = "Dir", orphan = true },
 ]
 archive_zip = [
-    { run = 'zip -r "${1%.zip}.zip" "$@"', desc = "Archive with zip", block = true },
+    { run = 'zip -r "${1%.zip}.zip" "$@"', desc = "Archive (zip)", block = true },
 ]
 extract_zip = [
-    { run = 'unzip "$1" -d "${1%.*}"', desc = "Extract zip", block = true },
+    { run = 'unzip "$1" -d "${1%.*}"', desc = "Extract (unzip)", block = true },
 ]
 archive_7z = [
-    { run = '7z a "${1%.7z}.7z" "$@"', desc = "Archive with 7z", block = true },
+    { run = '7z a "${1%.7z}.7z" "$@"', desc = "Archive (7z)", block = true },
 ]
 extract_7z = [
-    { run = '7z x "$1" -o"${1%.*}"', desc = "Extract 7z", block = true },
+    { run = '7z x "$1" -o"${1%.*}"', desc = "Extract (7z)", block = true },
 ]
 
 [open]
@@ -46,7 +44,6 @@ rules = [
         "archive_zip",
         "archive_7z",
     ] },
-
     { mime = "text/*", use = [
         "edit_nvim",
         "reveal",
@@ -65,7 +62,6 @@ rules = [
         "archive_zip",
         "archive_7z",
     ] },
-
     { mime = "image/*", use = [
         "view",
         "reveal",
@@ -78,13 +74,11 @@ rules = [
         "archive_zip",
         "archive_7z",
     ] },
-
     { mime = "application/pdf", use = [
         "reveal",
         "archive_zip",
         "archive_7z",
     ] },
-
     { mime = "application/zip", use = [
         "extract_zip",
         "reveal",
@@ -93,7 +87,6 @@ rules = [
         "extract_7z",
         "reveal",
     ] },
-
     { name = "*", use = [
         "edit_nvim",
         "reveal",

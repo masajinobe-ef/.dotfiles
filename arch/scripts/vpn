@@ -10,4 +10,4 @@ else
 fi
 
 echo "Starting sing-box..."
-sudo sing-box run -c ~/.dotfiles/personal/access.json
+sudo sing-box run -c ~/.dotfiles/personal/VPN/access.json

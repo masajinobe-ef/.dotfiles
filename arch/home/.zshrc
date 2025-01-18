@@ -170,6 +170,7 @@ alias cp="cp -vr"
 alias mkdir="mkdir -p"
 alias l="clear; eza --long --header --tree --icons=always --all --level=1 --group-directories-first --no-permissions --no-user --no-time --no-filesize"
 alias ls="l"
+alias pwdcp="pwd|tr -d '\n'|xclip -selection clipboard"
 
 # Archive
 alias untar="tar -xvvf"

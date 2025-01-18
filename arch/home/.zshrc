@@ -181,7 +181,7 @@ alias uz="unzip"
 alias ft="fc-list : family | fzf"
 alias as="alias | fzf"
 
-# Package Managment
+# Package Management
 alias orph="sudo pacman -Rns \$(pacman -Qdtq)"
 alias pkgs="pacman -Q | fzf"
 alias pkgi="pacman -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fly {1} | awk \"{print \$2}\")' | xargs -ro sudo pacman -S"

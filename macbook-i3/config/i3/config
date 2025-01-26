@@ -114,7 +114,7 @@ bindsym $mod+r mode "resize"
 ### ======================= Window Rules ======================= ###
 
 # Assign Applications to Workspaces
-assign [class="^Alacritty$"] 1
+#assign [class="^Alacritty$"] 1
 assign [class="^Thorium-browser$"] 2
 assign [class="^TelegramDesktop$"] 3
 

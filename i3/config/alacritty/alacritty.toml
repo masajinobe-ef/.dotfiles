@@ -1,4 +1,4 @@
-general.import = ["~/.config/alacritty/themes/themes/carbonfox.toml"]
+general.import = ["~/.config/alacritty/themes/themes/terminal_app.toml"]
 
 [window]
 opacity = 0.95

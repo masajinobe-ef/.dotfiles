@@ -135,54 +135,46 @@ exec_always --no-startup-id xrandr --output eDP-1 --mode 1366x768 --rate 60
 
 ### ======================= User Autorun ======================= ###
 
-#exec pgrep -x telegram-desktop >/dev/null || telegram-desktop &
-#exec pgrep -x thorium-browser >/dev/null || thorium-browser &
-exec pgrep -x alacritty >/dev/null || alacritty &
-#exec pgrep -x udiskie >/dev/null || udiskie --no-automount --tray &
+#exec --no-startup-id
 
 ### ======================= Start Environment ======================= ###
 
-exec pgrep -x picom >/dev/null || picom --config ~/.config/picom/picom.conf &
-exec pgrep -x dunst >/dev/null || dunst --config ~/.config/dunst/dunstrc &
-#exec pgrep -x feh >/dev/null || feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/* &
-exec pgrep -x "polkit-gnome-au" >/dev/null || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
+exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
+exec --no-startup-id feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/*
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 ### ======================= User Keybindings ======================= ###
 
 # Browser
-bindsym $mod+w exec thorium-browser
+bindsym $mod+w exec --no-startup-id thorium-browser
 
 # Terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec --no-startup-id alacritty
 
 # Music Player
-bindsym $mod+m exec alacritty -e "ncmpcpp"
+bindsym $mod+m exec --no-startup-id alacritty -e "ncmpcpp"
 
 # Launcher
-bindsym $mod+e exec rofi -show combi -combi-modes drun
+bindsym $mod+e exec --no-startup-id rofi -show combi -combi-modes drun
 
 # Zoomer
-bindsym $mod+z exec ~/.local/bin/boomer
-
-# Power Managment
-bindsym $mod+F6 exec --no-startup-id systemctl poweroff
-bindsym $mod+F7 exec --no-startup-id systemctl reboot
-bindsym $mod+F8 exec --no-startup-id systemctl suspend --no-block
+bindsym $mod+z exec --no-startup-id ~/.local/bin/boomer
 
 # WIFI Menu
-bindsym $mod+F5 exec --no-startup-id sh ~/.local/scripts/rofi-wifi-menu &
+bindsym $mod+F5 exec --no-startup-id sh ~/.local/scripts/rofi-wifi-menu
 
 # Music Control
-bindsym $mod+F9 exec --no-startup-id sh ~/.local/scripts/mpctrl --toggle &
-bindsym $mod+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --up &
-bindsym $mod+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --down &
-bindsym Control+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --next &
-bindsym Control+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --prev &
+bindsym $mod+F9 exec --no-startup-id sh ~/.local/scripts/mpctrl --toggle
+bindsym $mod+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --up
+bindsym $mod+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --down
+bindsym Control+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --next
+bindsym Control+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --prev
 
 # Screenshot
-bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/screenshot --save &
-bindsym $mod+minus exec --no-startup-id sh ~/.local/scripts/screenshot --clipboard &
-bindsym $mod+backslash exec --no-startup-id sh ~/.local/scripts/screenshot --full &
+bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/screenshot --save
+bindsym $mod+minus exec --no-startup-id sh ~/.local/scripts/screenshot --clipboard
+bindsym $mod+backslash exec --no-startup-id sh ~/.local/scripts/screenshot --full
 
 # Microphone Toggle
 bindsym $mod+grave exec --no-startup-id sh ~/.local/scripts/microphone && $refresh_i3status
@@ -193,7 +185,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 
 # Brightness Control
-bindsym XF86MonBrightnessUp exec --no-startup-id sh ~/.local/scripts/brightness up &
-bindsym XF86MonBrightnessDown exec --no-startup-id sh ~/.local/scripts/brightness down &
-bindsym XF86KbdBrightnessUp exec --no-startup-id sh ~/.local/scripts/keyboard-brightness up &
-bindsym XF86KbdBrightnessDown exec --no-startup-id sh ~/.local/scripts/keyboard-brightness down &
+bindsym XF86MonBrightnessUp exec --no-startup-id sh ~/.local/scripts/brightness up
+bindsym XF86MonBrightnessDown exec --no-startup-id sh ~/.local/scripts/brightness down
+bindsym XF86KbdBrightnessUp exec --no-startup-id sh ~/.local/scripts/keyboard-brightness up
+bindsym XF86KbdBrightnessDown exec --no-startup-id sh ~/.local/scripts/keyboard-brightness down

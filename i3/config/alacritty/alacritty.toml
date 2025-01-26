@@ -1,4 +1,4 @@
-general.import = ["~/.config/alacritty/themes/themes/terminal_app.toml"]
+general.import = ["~/.config/alacritty/themes/themes/hyper.toml"]
 
 [window]
 opacity = 0.95

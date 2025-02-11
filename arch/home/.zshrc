@@ -194,7 +194,7 @@ alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"
 
 # Other
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias mirrors="sudo sh ~/.local/scripts/reflector"
+alias mirror-update="sudo reflector --verbose --protocol https --age 24 --sort rate --latest 20 --country Germany,Russia,Netherlands --save /etc/pacman.d/mirrorlist"
 alias dun='killall dunst && dunst & notify-send "cool2" "yeah it is working" && notify-send "cool2" "yeah it is working"'
 
 # pnpm

@@ -75,7 +75,6 @@ source $ZSH/oh-my-zsh.sh
 #                                 Hotkeys
 # ==============================================================================
 
-bindkey -s '^n' "nvim "
 bindkey -s '^s' "zsf "
 bindkey -s '^d' "zsd\n"
 bindkey -s '^e' "tmux-workflow\n"
@@ -127,7 +126,7 @@ TER="alacritty"
 
 export LANG="en_US.UTF-8"
 export XDG_SESSION_TYPE="x11"
-export SUDO_PROMPT="pass: "
+export SUDO_PROMPT="ENTER YOUR PASSWORD: "
 
 export EDITOR=$NVIM
 export SUDO_EDITOR=$NVIM
@@ -140,7 +139,7 @@ export TERM=$ZSH_TMUX_TERM
 
 export BROWSER="thorium-browser"
 
-export JAVA="/usr/lib/jvm/java-23-openjdk"
+export JAVA="/usr/lib/jvm/default"
 export CARGO="$HOME/.cargo/bin"
 export SCRIPTS="$HOME/.local/scripts"
 export BIN="$HOME/.local/bin"
@@ -178,8 +177,8 @@ alias zz="zip -r"
 alias uz="unzip"
 
 # Find Something
-alias ft="fc-list : family | fzf"
-alias as="alias | fzf"
+alias findfont="fc-list : family | fzf"
+alias findas="alias | fzf"
 
 # Package Management
 alias orph="sudo pacman -Rns \$(pacman -Qdtq)"

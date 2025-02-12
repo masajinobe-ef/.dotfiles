@@ -83,7 +83,7 @@ yay -S --needed --noconfirm \
     ffmpeg fastfetch btop eza fzf fd ripgrep bat bat-extras \
     rsync curl wget maim xdotool xclip zoxide aria2 hyperfine \
     xsel reflector jq man-db poppler ccache go rustup nodejs \
-    npm yarn p7zip unrar zip unzip ttf-jetbrains-mono-nerd \
+    npm pnpm p7zip unrar zip unzip ttf-jetbrains-mono-nerd \
     noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-cascadia-code-nerd \
     papirus-icon-theme
 ```

@@ -19,6 +19,10 @@ set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws0 "0"
 
 # Refresh i3status
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -63,6 +67,10 @@ bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
 bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws0
 
 # Focus Control
 bindsym $mod+h focus left
@@ -83,6 +91,10 @@ bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
 bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws0
 
 # Toggle Fullscreen
 bindsym $mod+s fullscreen toggle
@@ -114,9 +126,9 @@ bindsym $mod+r mode "resize"
 ### ======================= Window Rules ======================= ###
 
 # Assign Applications to Workspaces
-assign [class="^Alacritty$"] 1
-assign [class="^Thorium-browser$"] 2
-assign [class="^TelegramDesktop$"] 3
+#assign [class="^Alacritty$"] 1
+assign [class="^Thorium-browser$"] 3
+assign [class="^TelegramDesktop$"] 4
 
 # Floating and specific Rules for Windows
 for_window [instance="^.*Picture in picture$"] floating enable, sticky enable, resize set 640 360, move position 1920 0
@@ -145,7 +157,7 @@ exec --no-startup-id alacritty
 
 exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
 exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
-#exec --no-startup-id feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/*
+exec --no-startup-id feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/*
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 ### ======================= User Keybindings ======================= ###

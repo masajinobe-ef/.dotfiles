@@ -115,8 +115,8 @@ bindsym $mod+r mode "resize"
 
 # Assign Applications to Workspaces
 #assign [class="^Alacritty$"] 1
-assign [class="^Thorium-browser$"] 2
-assign [class="^TelegramDesktop$"] 3
+assign [class="^Thorium-browser$"] 3
+assign [class="^TelegramDesktop$"] 4
 
 # Floating and specific Rules for Windows
 for_window [instance="^.*Picture in picture$"] floating enable, sticky enable, resize set 640 360, move position 1366 0
@@ -141,7 +141,7 @@ exec_always --no-startup-id xrandr --output eDP-1 --mode 1366x768 --rate 60
 
 exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
 exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
-exec --no-startup-id feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/mac/*
+#exec --no-startup-id feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/mac/*
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 ### ======================= User Keybindings ======================= ###

@@ -2,7 +2,7 @@
 
 set -e
 
-BRIGHTNESS_STEPS=25
+BRIGHTNESS_STEPS=10
 
 case $1 in
 up)

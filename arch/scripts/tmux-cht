@@ -2,7 +2,7 @@
 
 set -e
 
-selected=$(cat ~/.config/tmux/.tmux-cht-languages ~/.config/tmux/.tmux-cht-command | fzf)
+selected=$(cat ~/.dotfiles/personal/.cht-languages ~/.dotfiles/personal/.cht-command | fzf)
 if [[ -z $selected ]]; then
     exit 0
 fi

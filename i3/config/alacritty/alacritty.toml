@@ -10,7 +10,6 @@ program = "/bin/zsh"
 
 [font]
 size = 14
-
 normal = { family = "JetbrainsMono Nerd Font", style = "Regular" }
 bold = { family = "JetbrainsMono Nerd Font", style = "Bold" }
 italic = { family = "JetbrainsMono Nerd Font", style = "italic" }
@@ -18,6 +17,9 @@ bold_italic = { family = "JetbrainsMono Nerd Font", style = "Bold Italic" }
 
 [keyboard]
 bindings = [
-  { key = "V", mods = "Control|Shift", action = "Paste" },
-  { key = "C", mods = "Control|Shift", action = "Copy" },
+    { key = "V", mods = "Control|Shift", action = "Paste" },
+    { key = "C", mods = "Control|Shift", action = "Copy" },
 ]
+
+[debug]
+log_level = "Warn"

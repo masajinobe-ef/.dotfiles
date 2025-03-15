@@ -192,9 +192,18 @@ alias ipv4="ip addr show | grep 'inet ' | grep -v '127.0.0.1' | cut -d' ' -f6 | 
 alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"
 
 # Other
-alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias mirror-update="sudo reflector --verbose --protocol https --age 24 --sort rate --latest 20 --country Germany,Russia,Netherlands --save /etc/pacman.d/mirrorlist"
 alias dun='killall dunst && dunst & notify-send "cool2" "yeah it is working" && notify-send "cool2" "yeah it is working"'
+alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias mirror-update="sudo reflector --verbose \
+  --protocol https \
+  --age 72 \
+  --sort rate \
+  --latest 15 \
+  --country Germany,Russia,Netherlands \
+  --exclude '.*(lcarilla\.de|kumi\.systems|soulharsh007\.dev|unixpeople\.org).*' \
+  --download-timeout 20 \
+  --connection-timeout 10 \
+  --save /etc/pacman.d/mirrorlist"
 
 # pnpm
 export PNPM_HOME="/home/masa/.local/share/pnpm"

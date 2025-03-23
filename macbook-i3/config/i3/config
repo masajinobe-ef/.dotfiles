@@ -131,7 +131,7 @@ exec_always --no-startup-id xsetroot -cursor_name left_ptr
 exec_always --no-startup-id xset r rate 250 50
 
 # Set resolution
-exec_always --no-startup-id xrandr --output eDP-1 --mode 1366x768 --rate 60
+exec_always --no-startup-id xrandr --output eDP1 --mode 1280x720 --rate 60
 
 # Set Display Power Management Signaling (DMPS)
 exec_always --no-startup-id xset dpms 180 300 600

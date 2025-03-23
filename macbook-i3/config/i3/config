@@ -131,7 +131,7 @@ exec_always --no-startup-id xsetroot -cursor_name left_ptr
 exec_always --no-startup-id xset r rate 250 50
 
 # Set resolution
-exec_always --no-startup-id xrandr --output eDP1 --mode 1280x720 --rate 60
+exec_always --no-startup-id xrandr --output eDP1 --mode 1366x768 --rate 60
 
 # Set Display Power Management Signaling (DMPS)
 exec_always --no-startup-id xset dpms 180 300 600
@@ -161,9 +161,6 @@ bindsym $mod+w exec --no-startup-id thorium-browser
 # Terminal
 bindsym $mod+Return exec --no-startup-id alacritty
 
-# Music Player
-bindsym $mod+m exec --no-startup-id alacritty -e "ncmpcpp"
-
 # Launcher
 bindsym $mod+e exec --no-startup-id rofi -show combi -combi-modes drun
 
@@ -172,13 +169,6 @@ bindsym $mod+z exec --no-startup-id ~/.local/bin/boomer
 
 # WIFI Menu
 bindsym $mod+F5 exec --no-startup-id sh ~/.local/scripts/rofi-wifi-menu
-
-# Music Control
-bindsym $mod+F9 exec --no-startup-id sh ~/.local/scripts/mpctrl --toggle
-bindsym $mod+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --up
-bindsym $mod+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --down
-bindsym Control+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --next
-bindsym Control+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --prev
 
 # Screenshot
 bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/screenshot --save

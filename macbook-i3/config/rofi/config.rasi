@@ -1,16 +1,24 @@
 configuration {
-    font: "JetBrainsMono Nerd Font 14";
+    show-icons: false;
+    terminal: "alacritty";
+    hide-scrollbar: true;
+    sidebar-mode: false;
 
-    show-icons: true;
-    icon-theme: "Papirus";
+    font: "JetBrainsMono Nerd Font 12";
+    lines: 15;
+    width: 100%;
+    padding: 0;
+    location: 0;
+    yoffset: 0;
+    xoffset: 0;
+    border-radius: 0;
+    horizontal: false;
+    anchor: "north west";
+    override-width: true;
+    click-to-exit: true;
 
-    window-format: "{w} {t}";
-    combi-display-format: "{text}";
-    drun-display-format: "{name}";
-
-    disable-history: true;
-    max-history-size: 5;
-
-    hover-select: false;
+    matching: "prefix";
+    tokenize: false;
+    kb-mode-complete: "";
 }
 @theme "theme.rasi"

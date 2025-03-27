@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+BRIGHTNESS_STEPS=5
+KB_BRIGHTNESS_STEPS=5
+
+case $1 in
+--up)
+    brightnessctl set "${BRIGHTNESS_STEPS:-5}%+" -q
+    ;;
+--down)
+    brightnessctl set "${BRIGHTNESS_STEPS:-5}%-" -q
+    ;;
+--kbup)
+    brightnessctl --device='smc::kbd_backlight' set "${KB_BRIGHTNESS_STEPS:-5}%+" -q
+    ;;
+--kbdown)
+    brightnessctl --device='smc::kbd_backlight' set "${KB_BRIGHTNESS_STEPS:-5}%-" -q
+    ;;
+esac

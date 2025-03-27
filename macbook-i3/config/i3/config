@@ -149,9 +149,9 @@ exec_always --no-startup-id brightnessctl set "0%" -q --device='smc::kbd_backlig
 ### ======================= Start Environment ======================= ###
 
 exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
-exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
-#exec --no-startup-id feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/mac/*
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+#exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
+#exec --no-startup-id feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/mac/*
 
 ### ======================= User Keybindings ======================= ###
 
@@ -168,15 +168,15 @@ bindsym $mod+e exec --no-startup-id rofi -show combi -combi-modes drun
 bindsym $mod+z exec --no-startup-id ~/.local/bin/boomer
 
 # WIFI Menu
-bindsym $mod+F5 exec --no-startup-id sh ~/.local/scripts/rofi-wifi-menu
+bindsym $mod+F7 exec --no-startup-id sh ~/.local/scripts/rofi-wifi-menu
 
 # Screenshot
-bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/screenshot --save
-bindsym $mod+minus exec --no-startup-id sh ~/.local/scripts/screenshot --clipboard
-bindsym $mod+backslash exec --no-startup-id sh ~/.local/scripts/screenshot --full
+bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/scrshot --save
+bindsym $mod+minus exec --no-startup-id sh ~/.local/scripts/scrshot --clipboard
+bindsym $mod+backslash exec --no-startup-id sh ~/.local/scripts/scrshot --full
 
 # Microphone Toggle
-bindsym $mod+grave exec --no-startup-id sh ~/.local/scripts/microphone && $refresh_i3status
+bindsym $mod+grave exec --no-startup-id sh ~/.local/scripts/mic && $refresh_i3status
 
 # Volume Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
@@ -184,7 +184,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 
 # Brightness Control
-bindsym XF86MonBrightnessUp exec --no-startup-id sh ~/.local/scripts/brightness up
-bindsym XF86MonBrightnessDown exec --no-startup-id sh ~/.local/scripts/brightness down
-bindsym XF86KbdBrightnessUp exec --no-startup-id sh ~/.local/scripts/keyboard-brightness up
-bindsym XF86KbdBrightnessDown exec --no-startup-id sh ~/.local/scripts/keyboard-brightness down
+bindsym XF86MonBrightnessUp exec --no-startup-id sh ~/.local/scripts/bright --up
+bindsym XF86MonBrightnessDown exec --no-startup-id sh ~/.local/scripts/bright --down
+bindsym XF86KbdBrightnessUp exec --no-startup-id sh ~/.local/scripts/bright --kbup
+bindsym XF86KbdBrightnessDown exec --no-startup-id sh ~/.local/scripts/bright --kbdown

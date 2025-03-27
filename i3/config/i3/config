@@ -191,12 +191,12 @@ bindsym Control+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --next
 bindsym Control+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --prev
 
 # Screenshot
-bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/screenshot --save
-bindsym $mod+minus exec --no-startup-id sh ~/.local/scripts/screenshot --clipboard
-bindsym $mod+backslash exec --no-startup-id sh ~/.local/scripts/screenshot --full
+bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/scrshot --save
+bindsym $mod+minus exec --no-startup-id sh ~/.local/scripts/scrshot --clipboard
+bindsym $mod+backslash exec --no-startup-id sh ~/.local/scripts/scrshot --full
 
 # Microphone Toggle
-bindsym $mod+grave exec --no-startup-id sh ~/.local/scripts/microphone && $refresh_i3status
+bindsym $mod+grave exec --no-startup-id sh ~/.local/scripts/mic && $refresh_i3status
 
 # Volume Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status

@@ -137,10 +137,13 @@ for_window [class="^.MEGAsync$"] floating enable
 ### ======================= Xorg Settings ======================= ###
 
 # Fix cursor
-exec_always --no-startup-id xsetroot -cursor_name left_ptr
+exec_always --no-startup-id sh -c "xsetroot -cursor_name left_ptr"
 
 # Set keyboard repeat rate
-exec_always --no-startup-id xset r rate 180 50
+exec_always --no-startup-id sh -c "xset r rate 180 50"
+
+# Set Display Power Management Signaling (DMPS)
+exec_always --no-startup-id xset dpms 180 300 600
 
 # Set resolution
 exec_always --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 144

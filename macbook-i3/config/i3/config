@@ -114,9 +114,9 @@ bindsym $mod+r mode "resize"
 ### ======================= Window Rules ======================= ###
 
 # Assign Applications to Workspaces
-assign [class="^Alacritty$"] 1
-assign [class="^Thorium-browser$"] 2
-assign [class="^TelegramDesktop$"] 3
+assign [class="^Alacritty$"] → 1: term
+assign [class="^Thorium-browser$"] → 2: web
+assign [class="^TelegramDesktop$"] → 3: telegram
 
 # Floating and specific Rules for Windows
 for_window [instance="^.*Picture in picture$"] floating enable, sticky enable, resize set 640 360, move position 1366 0
@@ -144,7 +144,7 @@ exec_always --no-startup-id brightnessctl set "0%" -q --device='smc::kbd_backlig
 
 ### ======================= User Autorun ======================= ###
 
-#exec --no-startup-id
+exec --no-startup-id alacritty
 
 ### ======================= Start Environment ======================= ###
 

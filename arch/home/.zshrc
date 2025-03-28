@@ -146,6 +146,15 @@ export BIN="$HOME/.local/bin"
 
 export PATH="$CARGO:$JAVA:$SCRIPTS:$BIN:$PATH"
 
+export PNPM_HOME="/home/masa/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+export UV_LINK_MODE=copy
+export UV_CACHE_DIR="~/.cache/uv"
+
 # ==============================================================================
 #                                 Aliases
 # ==============================================================================
@@ -205,10 +214,3 @@ alias mirror-update="sudo reflector --verbose \
   --connection-timeout 10 \
   --save /etc/pacman.d/mirrorlist"
 
-# pnpm
-export PNPM_HOME="/home/masa/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end

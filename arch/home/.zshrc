@@ -153,7 +153,6 @@ case ":$PATH:" in
 esac
 
 export UV_LINK_MODE=copy
-export UV_CACHE_DIR="~/.cache/uv"
 
 # ==============================================================================
 #                                 Aliases

@@ -139,21 +139,16 @@ export TERM=$ZSH_TMUX_TERM
 
 export BROWSER="thorium-browser"
 
+export UV_LINK_MODE=copy
+export RUFF_CACHE_DIR="$HOME/.cache/ruff"
+
 export JAVA="/usr/lib/jvm/default"
+export UV="/root/.local/bin"
+export PNPM="$HOME/.local/share/pnpm"
 export CARGO="$HOME/.cargo/bin"
 export SCRIPTS="$HOME/.local/scripts"
 export BIN="$HOME/.local/bin"
-
-export PATH="$CARGO:$JAVA:$SCRIPTS:$BIN:$PATH"
-
-export PNPM_HOME="/home/masa/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-export UV_LINK_MODE=copy
-export UV_CACHE_DIR="~/.cache/uv"
+export PATH="$PNPM:$CARGO:$JAVA:$SCRIPTS:$BIN:$PATH"
 
 # ==============================================================================
 #                                 Aliases

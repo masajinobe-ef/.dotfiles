@@ -71,7 +71,7 @@ $ cd .dotfiles && git submodule update --remote --merge
 ```sh
 yay -S --needed --noconfirm \
     xorg-server xorg-xinit xorg-xrandr xorg-xsetroot xorg-xset \
-    i3-wm i3status rofi thorium-browser-bin alacritty zsh dunst libnotify picom feh \
+    i3-wm i3status rofi thorium-browser-bin alacritty zsh dunst libnotify picom feh redshift \
     vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader \
     lib32-vulkan-icd-loader mesa mesa-utils mesa-vdpau \
     libva-mesa-driver lib32-mesa networkmanager nm-connection-editor \

@@ -185,11 +185,11 @@ alias findfont="fc-list : family | fzf"
 alias findas="alias | fzf"
 
 # Package Management
-alias orph="sudo pacman -Rns \$(pacman -Qdtq)"
-alias pkgs="pacman -Q | fzf"
-alias pkgi="pacman -Slq | fzf --multi --preview 'cat <(pacman -Si {1}) <(pacman -Fly {1} | awk \"{print \$2}\")' | xargs -ro sudo pacman -S"
-alias pkgu="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
-alias yayi="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+alias orph="yay -Rns \$(yay -Qdtq)"
+alias pkgs="yay -Q | fzf"
+alias pkgi="yay -Slq | fzf --multi --preview 'cat <(yay -Si {1}) <(yay -Fly {1} | awk \"{print \$2}\")' | xargs -ro yay -S"
+alias pkgu="yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs -ro yay -Rns"
+alias yayi="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro yay -S"
 
 # IP
 alias ipv4="ip addr show | grep 'inet ' | grep -v '127.0.0.1' | cut -d' ' -f6 | cut -d/ -f1"

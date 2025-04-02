@@ -7,7 +7,7 @@ echo "----------------------------------------------------"
 echo "UPDATING SYSTEM"
 echo "----------------------------------------------------"
 
-sudo pacman -Syu
+yay -Syu
 
 echo ""
 echo "----------------------------------------------------"
@@ -16,29 +16,17 @@ echo "----------------------------------------------------"
 
 if ! command -v paccache &>/dev/null; then
     echo "Installing pacman-contrib..."
-    sudo pacman -S --needed pacman-contrib
+    yay -S --needed pacman-contrib
 fi
 
 pacman_cache_space_used="$(du -sh /var/cache/pacman/pkg/)"
 echo "Space currently in use: $pacman_cache_space_used"
 echo ""
 echo "Clearing Cache, leaving newest 2 versions:"
-sudo paccache -vrk2
+sudo paccache -vrk2 # paccache still needs sudo
 echo ""
 echo "Clearing all uninstalled packages:"
 sudo paccache -ruk0
-
-echo ""
-echo "----------------------------------------------------"
-echo "REMOVING ORPHANED PACKAGES"
-echo "----------------------------------------------------"
-
-orphaned=$(sudo pacman -Qtdq)
-if [ -n "$orphaned" ]; then
-    echo "$orphaned" | sudo pacman -Rns -
-else
-    echo "No orphaned packages to remove."
-fi
 
 echo ""
 echo "----------------------------------------------------"
@@ -68,7 +56,7 @@ echo "OPTIONAL: Clean package cache? (y/N)"
 echo "----------------------------------------------------"
 read -r answer
 if [ "$answer" != "${answer#[Yy]}" ]; then
-    sudo pacman -Scc
+    yay -Scc
 fi
 
 echo "System maintenance completed!"

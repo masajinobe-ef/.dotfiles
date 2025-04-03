@@ -1,0 +1,205 @@
+### ======================= i3 Settings ======================= ###
+
+# Font Setting
+font pango:JetBrainsMono Nerd Font 10
+
+# Window Borders
+#for_window [class="^.*"] border pixel 3
+default_border pixel 3
+default_floating_border none
+
+# Gaps between Windows
+gaps inner 0
+gaps outer 0
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws0 "0"
+
+# Refresh i3status
+set $refresh_i3status killall -SIGUSR1 i3status
+
+# Mod Key
+set $mod Mod1
+
+### ======================= i3 Bar Configuration ======================= ###
+
+bar {
+    position top
+    status_command i3status
+    colors {
+        background #1a1b26
+        statusline #ffffff
+        focused_workspace  #7aa2f7 #1a1b26 #ffffff
+        active_workspace   #4abaaf #1f2335 #ffffff
+        inactive_workspace #414868 #24283b #a9b1d6
+        urgent_workspace   #ff5555 #1a1b26 #ffffff
+        separator #414868
+    }
+}
+
+client.focused          #7aa2f7 #414868 #ffffff
+client.focused_inactive #414868 #1f2335 #a9b1d6
+client.unfocused        #24283b #1a1b26 #737aa2
+client.urgent           #ff5555 #1a1b26 #ffffff
+client.placeholder      #1a1b26 #1a1b26 #ffffff
+
+### ======================= i3 Keybindings ======================= ###
+
+# Restart, Reload, Exit, Kill
+bindsym $mod+Control+c reload
+bindsym $mod+Control+r restart
+bindsym $mod+Control+q exec "i3-msg exit"
+bindsym $mod+q kill
+
+# Switch between workspaces
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws0
+
+# Focus Control
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move Focusable Windows
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Move Focusable to Workspaces
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws0
+
+# Toggle Fullscreen
+bindsym $mod+s fullscreen toggle
+
+# Toggle Floating
+floating_modifier $mod
+bindsym Ctrl+Shift+space floating toggle
+
+# Toggle Split (Vertical, Horizontal)
+bindsym $mod+r layout toggle split
+
+# Splits
+#bindsym $mod+n split h
+#bindsym $mod+v split v
+
+# Resize Focused
+# mode "resize" {
+#     bindsym l resize shrink width 5 px or 5 ppt
+#     bindsym k resize grow height 5 px or 5 ppt
+#     bindsym j resize shrink height 5 px or 5 ppt
+#     bindsym h resize grow width 5 px or 5 ppt
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+#     bindsym $mod+r mode "default"
+# }
+#
+# bindsym $mod+r mode "resize"
+
+### ======================= Window Rules ======================= ###
+
+# Assign Applications to Workspaces
+assign [class="^Alacritty$"] 1
+assign [class="^Thorium-browser$"] 2
+assign [class="^TelegramDesktop$"] 3
+
+# Floating and specific Rules for Windows
+for_window [instance="^.*Picture in picture$"] floating enable, sticky enable, resize set 640 360, move position 1920 0
+for_window [class="^.MEGAsync$"] floating enable
+
+### ======================= Xorg Settings ======================= ###
+
+# Fix cursor
+exec_always --no-startup-id sh -c "xsetroot -cursor_name left_ptr"
+
+# Set keyboard repeat rate
+exec_always --no-startup-id sh -c "xset r rate 180 50"
+
+# Set Display Power Management Signaling (DMPS)
+exec_always --no-startup-id xset dpms 180 300 600
+
+# Set resolution
+exec_always --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 144
+
+### ======================= User Autorun ======================= ###
+
+exec --no-startup-id alacritty -e "tmux new-session -A -s WORKFLOW -n zsh 'zsh'"
+exec --no-startup-id thorium-browser
+exec --no-startup-id telegram-desktop
+#exec --no-startup-id otd-daemon
+#exec --no-startup-id udiskie --no-automount --tray
+
+### ======================= Start Environment ======================= ###
+
+exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
+exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
+exec --no-startup-id feh --recursive --bg-fill --no-fehbg ~/Wallpapers/pc/wallhaven-j31ljw.png
+exec --no-startup-id sh -c "redshift"
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+### ======================= User Keybindings ======================= ###
+
+# Browser
+bindsym $mod+w exec --no-startup-id thorium-browser
+
+# Terminal
+bindsym $mod+Return exec --no-startup-id alacritty
+
+# Music Player
+bindsym $mod+m exec --no-startup-id alacritty -e "ncmpcpp"
+
+# Launcher
+bindsym $mod+e exec --no-startup-id rofi -show combi -combi-modes drun
+
+# Zoomer
+bindsym $mod+z exec --no-startup-id ~/.local/bin/boomer
+
+# WIFI Menu
+bindsym $mod+F7 exec --no-startup-id sh ~/.local/scripts/rofi-wifi-menu
+
+# Music Control
+bindsym $mod+F9 exec --no-startup-id sh ~/.local/scripts/mpctrl --toggle
+bindsym $mod+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --up
+bindsym $mod+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --down
+bindsym Control+F11 exec --no-startup-id sh ~/.local/scripts/mpctrl --next
+bindsym Control+F10 exec --no-startup-id sh ~/.local/scripts/mpctrl --prev
+
+# Screenshot
+bindsym $mod+equal exec --no-startup-id sh ~/.local/scripts/scrshot --save
+bindsym $mod+minus exec --no-startup-id sh ~/.local/scripts/scrshot --clipboard
+bindsym $mod+backslash exec --no-startup-id sh ~/.local/scripts/scrshot --full
+
+# Microphone Toggle
+bindsym $mod+grave exec --no-startup-id sh ~/.local/scripts/mic && $refresh_i3status
+
+# Volume Control
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status

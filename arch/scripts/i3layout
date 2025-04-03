@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+layout=$(xkblayout-state print %c)
+
+case $layout in
+0) echo En >/tmp/layout ;;
+1) echo Ru >/tmp/layout ;;
+esac

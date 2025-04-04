@@ -141,6 +141,7 @@ export BROWSER="thorium-browser"
 
 export UV_LINK_MODE=copy
 export RUFF_CACHE_DIR="$HOME/.cache/ruff"
+export COMPOSE_BAKE=true
 
 export JAVA="/usr/lib/jvm/default"
 export UV="/root/.local/bin"

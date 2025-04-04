@@ -47,7 +47,7 @@ echo "----------------------------------------------------"
 echo "CLEARING SYSTEM LOGS"
 echo "----------------------------------------------------"
 
-sudo journalctl --vacuum-time=7d
+sudo journalctl --vacuum-time=1h
 echo ""
 
 echo ""

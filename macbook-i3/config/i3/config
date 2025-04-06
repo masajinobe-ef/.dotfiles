@@ -128,7 +128,7 @@ for_window [class="^.MEGAsync$"] floating enable
 exec_always --no-startup-id sh -c "xsetroot -cursor_name left_ptr"
 
 # Set keyboard repeat rate
-exec_always --no-startup-id sh -c "xset r rate 250 50"
+exec_always --no-startup-id sh -c "xset r rate 180 50"
 
 # Set resolution
 exec_always --no-startup-id xrandr --output eDP1 --mode 1366x768 --rate 60

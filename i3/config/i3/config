@@ -150,7 +150,7 @@ exec_always --no-startup-id xrandr --output DP-1 --mode 1920x1080 --rate 144
 
 ### ======================= User Autorun ======================= ###
 
-exec --no-startup-id alacritty -e "tmux has-session -t WORKFLOW" "attach-session -t WORKFLOW" "new-session -A -s WORKFLOW -n zsh zsh"
+exec --no-startup-id alacritty -e sh -c "tmux has-session -t WORKFLOW 2>/dev/null && tmux attach -t WORKFLOW || tmux new-session -s WORKFLOW -n zsh"
 exec --no-startup-id thorium-browser
 exec --no-startup-id telegram-desktop
 #exec --no-startup-id otd-daemon

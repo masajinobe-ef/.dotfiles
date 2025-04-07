@@ -140,7 +140,7 @@ for_window [class="^.MEGAsync$"] floating enable
 exec_always --no-startup-id sh -c "xsetroot -cursor_name left_ptr"
 
 # Set keyboard repeat rate
-exec_always --no-startup-id sh -c "xset r rate 180 50"
+exec_always --no-startup-id sh -c "xset r rate 180 70"
 
 # Set Display Power Management Signaling (DMPS)
 exec_always --no-startup-id xset dpms 180 300 600

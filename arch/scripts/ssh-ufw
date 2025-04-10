@@ -30,32 +30,31 @@ get_ip() {
 trap cleanup EXIT
 
 main() {
+    echo -e "${CYAN}Очистка старых SSH ключей...${NC}"
     [ -f "/root/.ssh/known_hosts" ] && ssh-keygen -R "[localhost]:${SSH_PORT}" -f "/root/.ssh/known_hosts" >/dev/null 2>&1
-
     rm -rf /etc/ssh/ssh_host_* /etc/ssh/sshd_config
-    mkdir -p /etc/ssh
 
     echo -e "${CYAN}\nОбновление пакетов и установка зависимостей...${NC}"
     pacman -Sy --needed --noconfirm openssh ufw sudo >/dev/null 2>&1
 
-    [ ! -f "/etc/ssh/ssh_host_ed25519_key" ] && ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N "" -q
-    [ ! -f "/etc/ssh/ssh_host_rsa_key" ] && ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N "" -q
+    echo -e "${CYAN}Генерация SSH ключей...${NC}"
+    ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N "" -q
 
+    echo -e "${CYAN}Создание конфигурации SSH...${NC}"
     cat >/etc/ssh/sshd_config <<EOF
-Include /etc/ssh/sshd_config.d/*.conf
-AddressFamily inet
 Port ${SSH_PORT}
+AddressFamily inet
 Protocol 2
 HostKey /etc/ssh/ssh_host_ed25519_key
-HostKey /etc/ssh/ssh_host_rsa_key
 KexAlgorithms curve25519-sha256
 Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
 MACs hmac-sha2-512-etm@openssh.com
-PermitRootLogin prohibit-password
+PermitRootLogin no
 PubkeyAuthentication yes
-AuthenticationMethods publickey
 PasswordAuthentication no
+ChallengeResponseAuthentication no
 Subsystem sftp internal-sftp
+AllowUsers ${ADMIN_USER}
 EOF
 
     echo -e "${CYAN}\nНастройка фаервола...${NC}"
@@ -67,6 +66,7 @@ EOF
     ufw allow 80/tcp >/dev/null 2>&1
     ufw allow 443/tcp >/dev/null 2>&1
     ufw allow 8080/tcp >/dev/null 2>&1
+    ufw allow 9/tcp >/dev/null 2>&1
     ufw --force enable >/dev/null 2>&1
     systemctl enable --now ufw >/dev/null 2>&1
 
@@ -75,17 +75,18 @@ EOF
         echo -e "  ${YELLOW}✔ ${BLUE}${rule}${NC}"
     done
 
-    grep -q '^%wheel' /etc/sudoers || echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >>/etc/sudoers
-
-    id "${ADMIN_USER}" &>/dev/null || {
+    echo -e "${CYAN}\nСоздание пользователя ${ADMIN_USER}...${NC}"
+    if ! id "${ADMIN_USER}" &>/dev/null; then
         useradd -m -G wheel -s /bin/bash "${ADMIN_USER}"
-        echo "12345" | passwd --stdin "${ADMIN_USER}" >/dev/null
-        echo -e "${GREEN}Создан пользователь ${YELLOW}${ADMIN_USER}${GREEN} с временным паролем${NC}"
-    }
+        echo -e "${ADMIN_USER} ALL=(ALL) NOPASSWD:ALL" >"/etc/sudoers.d/99-${ADMIN_USER}"
+        chmod 440 "/etc/sudoers.d/99-${ADMIN_USER}"
+        echo -e "${GREEN}Пользователь создан с правами sudo без пароля${NC}"
+    fi
 
+    echo -e "${CYAN}Настройка SSH-доступа...${NC}"
     mkdir -p "/home/${ADMIN_USER}/.ssh"
     ssh-keygen -t ed25519 -f "${TEMP_KEY}" -N "" -q >/dev/null
-    cat "${TEMP_KEY}.pub" >>"/home/${ADMIN_USER}/.ssh/authorized_keys"
+    cp "${TEMP_KEY}.pub" "/home/${ADMIN_USER}/.ssh/authorized_keys"
     chown -R "${ADMIN_USER}:${ADMIN_USER}" "/home/${ADMIN_USER}/.ssh"
     chmod 700 "/home/${ADMIN_USER}/.ssh"
     chmod 600 "/home/${ADMIN_USER}/.ssh/authorized_keys"
@@ -94,8 +95,8 @@ EOF
     systemctl restart sshd
 
     echo -e "${CYAN}\nПроверка SSH подключения...${NC}"
-    if ssh -o StrictHostKeyChecking=accept-new -i "${TEMP_KEY}" -p ${SSH_PORT} "${ADMIN_USER}@localhost" "sudo touch /tmp/ssh_test_file && sudo rm -f /tmp/ssh_test_file" >/dev/null 2>&1; then
-        echo -e "${GREEN}✔ Успешное подключение! Создан и удален тестовый файл в системе${NC}"
+    if ssh -o StrictHostKeyChecking=accept-new -o PasswordAuthentication=no -i "${TEMP_KEY}" -p ${SSH_PORT} "${ADMIN_USER}@localhost" true; then
+        echo -e "${GREEN}✔ Успешное подключение по SSH-ключу!${NC}"
     else
         echo -e "${RED}✗ Ошибка подключения${NC}" >&2
         exit 1
@@ -105,28 +106,15 @@ EOF
     echo -e "\n${GREEN}==============================================="
     echo "          НАСТРОЙКА УСПЕШНО ЗАВЕРШЕНА"
     echo "===============================================${NC}"
-    echo
-    echo -e "${YELLOW}Сервер готов к работе"
-    echo -e "IP адрес:    ${CYAN}${SERVER_IP}"
-    echo -e "${YELLOW}SSH порт:    ${CYAN}${SSH_PORT}"
-    echo -e "${YELLOW}Пользователь: ${CYAN}${ADMIN_USER}"
-    echo
-    echo -e "${BLUE}----------- ИНСТРУКЦИЯ ДЛЯ ПОДКЛЮЧЕНИЯ -----------${NC}"
-    echo
-    echo -e "1. ${YELLOW}Сгенерируйте SSH-ключ (если ещё нет):${NC}"
-    echo -e "   ${CYAN}ssh-keygen -t ed25519 -C \"${USER}-$(date +%Y%m%d)\"${NC}"
-    echo
-    echo -e "2. ${YELLOW}Скопируйте публичный ключ на сервер:${NC}"
+    echo -e "${YELLOW}Подключение только по SSH-ключу ed25519"
+    echo -e "IP: ${CYAN}${SERVER_IP}${YELLOW} Портал: ${CYAN}${SSH_PORT}"
+    echo -e "${YELLOW}Пользователь: ${CYAN}${ADMIN_USER}${NC}\n"
+    echo -e "${BLUE}Инструкция для постоянного доступа:"
+    echo -e "1. Скопируйте свой публичный ключ на сервер:"
     echo -e "   ${CYAN}ssh-copy-id -p ${SSH_PORT} -i ~/.ssh/id_ed25519.pub ${ADMIN_USER}@${SERVER_IP}${NC}"
-    echo
-    echo -e "3. ${YELLOW}Подключитесь к серверу:${NC}"
-    echo -e "   ${CYAN}ssh -p ${SSH_PORT} ${ADMIN_USER}@${SERVER_IP}${NC}"
-    echo
-    echo -e "4. ${YELLOW}Смените пароль сразу после входа:${NC}"
-    echo -e "   ${RED}passwd ${ADMIN_USER}${NC}"
-    echo
-    echo -e "${BLUE}--------------------------------------------------${NC}"
-    echo -e "${GREEN}Сохраните эти данные в надежное место!${NC}"
+    echo -e "2. Для подключения используйте:"
+    echo -e "   ${CYAN}ssh -p ${SSH_PORT} -i ~/.ssh/id_ed25519 ${ADMIN_USER}@${SERVER_IP}${NC}"
+    echo -e "${BLUE}===============================================${NC}"
 }
 
 main

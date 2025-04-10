@@ -5,6 +5,8 @@ set -euo pipefail
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
 NC='\033[0m'
 
 if [[ $EUID -ne 0 ]]; then
@@ -33,6 +35,7 @@ main() {
     rm -rf /etc/ssh/ssh_host_* /etc/ssh/sshd_config
     mkdir -p /etc/ssh
 
+    echo -e "${CYAN}\nОбновление пакетов и установка зависимостей...${NC}"
     pacman -Sy --needed --noconfirm openssh ufw sudo >/dev/null 2>&1
 
     [ ! -f "/etc/ssh/ssh_host_ed25519_key" ] && ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N "" -q
@@ -55,6 +58,7 @@ PasswordAuthentication no
 Subsystem sftp internal-sftp
 EOF
 
+    echo -e "${CYAN}\nНастройка фаервола...${NC}"
     sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw
     ufw --force reset >/dev/null 2>&1
     ufw default deny incoming >/dev/null 2>&1
@@ -66,11 +70,17 @@ EOF
     ufw --force enable >/dev/null 2>&1
     systemctl enable --now ufw >/dev/null 2>&1
 
+    echo -e "${GREEN}Добавленные правила UFW:${NC}"
+    ufw status | grep -E '(ALLOW|LIMIT)' | awk '{print $1 " " $2 " " $3}' | while read -r rule; do
+        echo -e "  ${YELLOW}✔ ${BLUE}${rule}${NC}"
+    done
+
     grep -q '^%wheel' /etc/sudoers || echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >>/etc/sudoers
 
     id "${ADMIN_USER}" &>/dev/null || {
         useradd -m -G wheel -s /bin/bash "${ADMIN_USER}"
         echo "12345" | passwd --stdin "${ADMIN_USER}" >/dev/null
+        echo -e "${GREEN}Создан пользователь ${YELLOW}${ADMIN_USER}${GREEN} с временным паролем${NC}"
     }
 
     mkdir -p "/home/${ADMIN_USER}/.ssh"
@@ -83,10 +93,11 @@ EOF
     systemctl enable --now sshd >/dev/null
     systemctl restart sshd
 
-    if ssh -o StrictHostKeyChecking=accept-new -i "${TEMP_KEY}" -p ${SSH_PORT} "${ADMIN_USER}@localhost" "sudo whoami" | grep -q 'root'; then
-        echo -e "${GREEN}Проверка подключения успешна${NC}"
+    echo -e "${CYAN}\nПроверка SSH подключения...${NC}"
+    if ssh -o StrictHostKeyChecking=accept-new -i "${TEMP_KEY}" -p ${SSH_PORT} "${ADMIN_USER}@localhost" "sudo touch /tmp/ssh_test_file && sudo rm -f /tmp/ssh_test_file" >/dev/null 2>&1; then
+        echo -e "${GREEN}✔ Успешное подключение! Создан и удален тестовый файл в системе${NC}"
     else
-        echo -e "${RED}Ошибка подключения${NC}" >&2
+        echo -e "${RED}✗ Ошибка подключения${NC}" >&2
         exit 1
     fi
 
@@ -96,25 +107,25 @@ EOF
     echo "===============================================${NC}"
     echo
     echo -e "${YELLOW}Сервер готов к работе"
-    echo -e "IP адрес:    ${GREEN}${SERVER_IP}"
-    echo -e "${YELLOW}SSH порт:    ${GREEN}${SSH_PORT}"
-    echo -e "${YELLOW}Пользователь: ${GREEN}${ADMIN_USER}"
+    echo -e "IP адрес:    ${CYAN}${SERVER_IP}"
+    echo -e "${YELLOW}SSH порт:    ${CYAN}${SSH_PORT}"
+    echo -e "${YELLOW}Пользователь: ${CYAN}${ADMIN_USER}"
     echo
-    echo -e "${YELLOW}----------- ИНСТРУКЦИЯ ДЛЯ ПОДКЛЮЧЕНИЯ -----------${NC}"
+    echo -e "${BLUE}----------- ИНСТРУКЦИЯ ДЛЯ ПОДКЛЮЧЕНИЯ -----------${NC}"
     echo
     echo -e "1. ${YELLOW}Сгенерируйте SSH-ключ (если ещё нет):${NC}"
-    echo "   ssh-keygen -t ed25519 -C \"${USER}-$(date +%Y%m%d)\""
+    echo -e "   ${CYAN}ssh-keygen -t ed25519 -C \"${USER}-$(date +%Y%m%d)\"${NC}"
     echo
     echo -e "2. ${YELLOW}Скопируйте публичный ключ на сервер:${NC}"
-    echo "   ssh-copy-id -p ${SSH_PORT} -i ~/.ssh/id_ed25519.pub ${ADMIN_USER}@${SERVER_IP}"
+    echo -e "   ${CYAN}ssh-copy-id -p ${SSH_PORT} -i ~/.ssh/id_ed25519.pub ${ADMIN_USER}@${SERVER_IP}${NC}"
     echo
     echo -e "3. ${YELLOW}Подключитесь к серверу:${NC}"
-    echo "   ssh -p ${SSH_PORT} ${ADMIN_USER}@${SERVER_IP}"
+    echo -e "   ${CYAN}ssh -p ${SSH_PORT} ${ADMIN_USER}@${SERVER_IP}${NC}"
     echo
     echo -e "4. ${YELLOW}Смените пароль сразу после входа:${NC}"
-    echo "   passwd ${ADMIN_USER}"
+    echo -e "   ${RED}passwd ${ADMIN_USER}${NC}"
     echo
-    echo -e "${YELLOW}--------------------------------------------------${NC}"
+    echo -e "${BLUE}--------------------------------------------------${NC}"
     echo -e "${GREEN}Сохраните эти данные в надежное место!${NC}"
 }
 

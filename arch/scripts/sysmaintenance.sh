@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -euo pipefail
 trap 'echo "Error in line $LINENO"; exit 1' ERR

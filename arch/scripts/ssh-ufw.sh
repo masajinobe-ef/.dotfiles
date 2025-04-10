@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+if [[ $EUID -ne 0 ]]; then
+    echo -e "${RED}ОШИБКА: Запустите скрипт как root${NC}" >&2
+    exit 1
+fi
+
+SSH_PORT=33677
+ADMIN_USER="masa"
+TEMP_KEY="/tmp/auto_key"
+
+cleanup() {
+    [ -f "${TEMP_KEY}" ] && rm -f "${TEMP_KEY}" "${TEMP_KEY}.pub"
+    echo -e "${YELLOW}Временные ключи удалены${NC}"
+}
+
+get_ip() {
+    ip -o -4 addr show scope global | awk '{print $4}' | cut -d/ -f1 | head -1
+}
+
+trap cleanup EXIT
+
+main() {
+    [ -f "/root/.ssh/known_hosts" ] && ssh-keygen -R "[localhost]:${SSH_PORT}" -f "/root/.ssh/known_hosts" >/dev/null 2>&1
+
+    rm -rf /etc/ssh/ssh_host_* /etc/ssh/sshd_config
+    mkdir -p /etc/ssh
+
+    pacman -Sy --needed --noconfirm openssh ufw sudo >/dev/null 2>&1
+
+    [ ! -f "/etc/ssh/ssh_host_ed25519_key" ] && ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N "" -q
+    [ ! -f "/etc/ssh/ssh_host_rsa_key" ] && ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -N "" -q
+
+    cat >/etc/ssh/sshd_config <<EOF
+Include /etc/ssh/sshd_config.d/*.conf
+AddressFamily inet
+Port ${SSH_PORT}
+Protocol 2
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+KexAlgorithms curve25519-sha256
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+MACs hmac-sha2-512-etm@openssh.com
+PermitRootLogin prohibit-password
+PubkeyAuthentication yes
+AuthenticationMethods publickey
+PasswordAuthentication no
+Subsystem sftp internal-sftp
+EOF
+
+    sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw
+    ufw --force reset >/dev/null 2>&1
+    ufw default deny incoming >/dev/null 2>&1
+    ufw default allow outgoing >/dev/null 2>&1
+    ufw allow "${SSH_PORT}/tcp" >/dev/null 2>&1
+    ufw allow 80/tcp >/dev/null 2>&1
+    ufw allow 443/tcp >/dev/null 2>&1
+    ufw allow 8080/tcp >/dev/null 2>&1
+    ufw --force enable >/dev/null 2>&1
+    systemctl enable --now ufw >/dev/null 2>&1
+
+    grep -q '^%wheel' /etc/sudoers || echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >>/etc/sudoers
+
+    id "${ADMIN_USER}" &>/dev/null || {
+        useradd -m -G wheel -s /bin/bash "${ADMIN_USER}"
+        echo "12345" | passwd --stdin "${ADMIN_USER}" >/dev/null
+    }
+
+    mkdir -p "/home/${ADMIN_USER}/.ssh"
+    ssh-keygen -t ed25519 -f "${TEMP_KEY}" -N "" -q >/dev/null
+    cat "${TEMP_KEY}.pub" >>"/home/${ADMIN_USER}/.ssh/authorized_keys"
+    chown -R "${ADMIN_USER}:${ADMIN_USER}" "/home/${ADMIN_USER}/.ssh"
+    chmod 700 "/home/${ADMIN_USER}/.ssh"
+    chmod 600 "/home/${ADMIN_USER}/.ssh/authorized_keys"
+
+    systemctl enable --now sshd >/dev/null
+    systemctl restart sshd
+
+    if ssh -o StrictHostKeyChecking=accept-new -i "${TEMP_KEY}" -p ${SSH_PORT} "${ADMIN_USER}@localhost" "sudo whoami" | grep -q 'root'; then
+        echo -e "${GREEN}Проверка подключения успешна${NC}"
+    else
+        echo -e "${RED}Ошибка подключения${NC}" >&2
+        exit 1
+    fi
+
+    SERVER_IP=$(get_ip)
+    echo -e "\n${GREEN}==============================================="
+    echo "          НАСТРОЙКА УСПЕШНО ЗАВЕРШЕНА"
+    echo "===============================================${NC}"
+    echo
+    echo -e "${YELLOW}Сервер готов к работе"
+    echo -e "IP адрес:    ${GREEN}${SERVER_IP}"
+    echo -e "${YELLOW}SSH порт:    ${GREEN}${SSH_PORT}"
+    echo -e "${YELLOW}Пользователь: ${GREEN}${ADMIN_USER}"
+    echo
+    echo -e "${YELLOW}----------- ИНСТРУКЦИЯ ДЛЯ ПОДКЛЮЧЕНИЯ -----------${NC}"
+    echo
+    echo -e "1. ${YELLOW}Сгенерируйте SSH-ключ (если ещё нет):${NC}"
+    echo "   ssh-keygen -t ed25519 -C \"${USER}-$(date +%Y%m%d)\""
+    echo
+    echo -e "2. ${YELLOW}Скопируйте публичный ключ на сервер:${NC}"
+    echo "   ssh-copy-id -p ${SSH_PORT} -i ~/.ssh/id_ed25519.pub ${ADMIN_USER}@${SERVER_IP}"
+    echo
+    echo -e "3. ${YELLOW}Подключитесь к серверу:${NC}"
+    echo "   ssh -p ${SSH_PORT} ${ADMIN_USER}@${SERVER_IP}"
+    echo
+    echo -e "4. ${YELLOW}Смените пароль сразу после входа:${NC}"
+    echo "   passwd ${ADMIN_USER}"
+    echo
+    echo -e "${YELLOW}--------------------------------------------------${NC}"
+    echo -e "${GREEN}Сохраните эти данные в надежное место!${NC}"
+}
+
+main

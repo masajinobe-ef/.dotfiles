@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+if tmux has-session -t WORKFLOW 2>/dev/null; then
+    tmux attach-session -t WORKFLOW
+else
+    tmux new-session -s WORKFLOW -n "zsh" "zsh"
+fi
+
+exit 0

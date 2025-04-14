@@ -1,0 +1,12 @@
+pyproject.toml
+
+mpd.db
+mpd.state
+syslog
+playlists/*
+
+help.rc
+
+error.log
+lyrics/*
+

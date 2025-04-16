@@ -174,11 +174,7 @@ alias mv="mv -v"
 alias rm="rm -rfv"
 alias cp="cp -vr"
 alias mkdir="mkdir -p"
-<<<<<<< HEAD
-alias l="clear; eza --long --header --tree --icons=always --all --level=1 --group-directories-first --no-permissions --no-user --no-time --no-filesize"
-=======
 alias l="clear; eza --long --header --icons=always --all --level=1 --group-directories-first --no-time"
->>>>>>> cddd1a564258e3b664a3a144f33c2661841d5f2b
 alias ls="l"
 alias pwdcp="pwd|tr -d '\n'|xclip -selection clipboard"
 

@@ -45,15 +45,16 @@ add-newline-to-prompt() {
   fi
 }
 
-add-zsh-hook precmd add-newline-to-prompt
 
 set_prompt() {
     DIR_PROMPT="%F{cyan}%(4~|%2~|%3~)%f"
     PROMPT="$DIR_PROMPT %(?.%F{green}❯%f.%F{red}❯%f) "
 }
-add-zsh-hook precmd set_prompt
 
 RPROMPT='${vcs_info_msg_0_} %(!.%F{red}⚡%f.%F{green} %f) %F{8}%D{%H:%M}%f'
+
+add-zsh-hook precmd add-newline-to-prompt
+add-zsh-hook precmd set_prompt
 add-zsh-hook precmd vcs_info
 
 ### Oh My Zsh Framework

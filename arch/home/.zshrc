@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# Zsh Settings
+### Zsh Settings
 export ZSH_THEME="robbyrussell"
 export DISABLE_AUTO_TITLE="true"
 setopt TRANSIENT_RPROMPT
@@ -10,8 +10,39 @@ export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
 
+# Define custom colors
+autoload -Uz colors && colors
+typeset -gA fg
+fg[love]=$'\e[31m'        # red
+fg[gold]=$'\e[33m'        # yellow
+fg[iris]=$'\e[34m'        # blue
+fg[foam]=$'\e[36m'        # cyan
+fg[rose]=$'\e[35m'        # magenta
+fg[pine]=$'\e[32m'        # green
+
+autoload -Uz add-zsh-hook vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr '%F{red}✗%f'
+zstyle ':vcs_info:*' stagedstr '%F{yellow}✓%f'
+zstyle ':vcs_info:*' formats '%F{blue}[%b]%u%c%f'
+zstyle ':vcs_info:*' actionformats '%F{blue}[%b|%a]%u%c%f'
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
++vi-git-untracked() {
+  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+     git status --porcelain | grep -q '??' 2> /dev/null ; then
+    hook_com[unstaged]+='%F{magenta}?%f'
+  fi
+}
+set_prompt() {
+    DIR_PROMPT="%F{cyan}%(4~|.../%2~|%3~)%f"
+    PROMPT="$DIR_PROMPT %(?.%F{green}❯%f.%F{red}❯%f) "
+}
+add-zsh-hook precmd set_prompt
+RPROMPT='%(!.%F{red}⚡%f%n.%F{green}%n%f) ${vcs_info_msg_0_}%F{yellow}%(1j.[%j].)%f'
+add-zsh-hook precmd vcs_info
+
 ### Oh My Zsh Framework
-# Core framework configuration
 export ZSH="$HOME/.oh-my-zsh"
 plugins=(
   git
@@ -43,12 +74,11 @@ export COMPOSE_BAKE=true
 typeset -U PATH path
 
 path=(
-    ~/.dotfiles
+    ~/.dotfiles/personal/sh
     ~/.local/bin
     ~/.local/scripts
     ~/.local/share
     ~/.cargo/bin
-    /usr/lib/jvm/default/bin
     $path
 )
 

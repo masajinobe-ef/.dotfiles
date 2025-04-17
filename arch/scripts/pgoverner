@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+case $1 in
+--powersave)
+    sudo auto-cpufreq --force powersave
+    ;;
+--performance)
+    sudo auto-cpufreq --force performance
+    ;;
+esac

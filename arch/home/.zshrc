@@ -14,9 +14,9 @@ setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
 # Core framework configuration
 export ZSH="$HOME/.oh-my-zsh"
 plugins=(
-  git               
-  fzf                   
-  tmux                  
+  git
+  fzf
+  tmux
   zsh-autosuggestions
 )
 source $ZSH/oh-my-zsh.sh
@@ -37,24 +37,24 @@ export BROWSER="thorium-browser"
 # --- Development Tools ---
 export UV_LINK_MODE=copy
 export RUFF_CACHE_DIR="$HOME/.cache/ruff"
-export COMPOSE_BAKE=true             
+export COMPOSE_BAKE=true
 
 # --- Paths Configuration ---
 typeset -U PATH path
 
 path=(
+    ~/.dotfiles
     ~/.local/bin
     ~/.local/scripts
     ~/.local/share
     ~/.cargo/bin
     /usr/lib/jvm/default/bin
-    ~/.dotfiles
     $path
 )
 
 ### Aliases
 alias v="nvim"
-alias zc="source ~/.zshrc" 
+alias zc="source ~/.zshrc"
 alias mv="mv -v"
 alias rm="rm -rfv"
 alias cp="cp -vr"
@@ -79,3 +79,12 @@ alias mirror-update="sudo reflector --verbose \
 ### Zoxide Initialization
 eval "$(zoxide init zsh)"
 
+### Yazi Initialization
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

@@ -30,30 +30,61 @@ zstyle ':vcs_info:*' stagedstr '%F{yellow} %f'
 zstyle ':vcs_info:*' formats '%F{blue} %b%f %u%c'
 zstyle ':vcs_info:*' actionformats '%F{red} %b|%a%f %u%c'
 
++vi-git-remote-status() {
+    local ahead behind remote_status
+    local -a gitstatus
+
+    # Check if we have a remote
+    if ! git rev-parse --abbrev-ref @{upstream} >/dev/null 2>&1; then
+        return 0
+    fi
+
+    ahead=$(git rev-list --count @{upstream}..HEAD 2>/dev/null)
+    behind=$(git rev-list --count HEAD..@{upstream} 2>/dev/null)
+
+    (( ahead )) && gitstatus+=( "%F{green}↑${ahead}%f" )
+    (( behind )) && gitstatus+=( "%F{red}↓${behind}%f" )
+
+    [[ -n $gitstatus ]] && hook_com[branch]+=" ${(j:/:)gitstatus}"
+}
+
++vi-git-untracked() {
+    if [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]] && \
+       git status --porcelain | grep -q '??' 2>/dev/null; then
+        hook_com[unstaged]+="%F{magenta}?%f"
+    fi
+}
+
 +vi-git-repo-status() {
-  if [[ $(git status --porcelain | wc -l) -gt 0 ]]; then
-    hook_com[branch]="%F{yellow}${hook_com[branch]}%f"
-  fi
+    if [[ $(git status --porcelain | wc -l) -gt 0 ]]; then
+        hook_com[branch]="%F{yellow}${hook_com[branch]}%f"
+    fi
 }
-zstyle ':vcs_info:git*+set-message:*' hooks git-repo-status
 
+zstyle ':vcs_info:git*+set-message:*' hooks \
+    git-remote-status \
+    git-untracked \
+    git-repo-status
+
+# Prompt configuration
 add-newline-to-prompt() {
-  if [[ -n "$_first_prompt" ]]; then
-    print
-  else
-    _first_prompt=1
-  fi
+    if [[ -n "$_first_prompt" ]]; then
+        print
+    else
+        _first_prompt=1
+    fi
 }
-
-add-zsh-hook precmd add-newline-to-prompt
 
 set_prompt() {
     DIR_PROMPT="%F{cyan}%(4~|%2~|%3~)%f"
     PROMPT="$DIR_PROMPT %(?.%F{green}❯%f.%F{red}❯%f) "
 }
-add-zsh-hook precmd set_prompt
 
-RPROMPT='${vcs_info_msg_0_} %(!.%F{red}⚡%f.%F{green} %f) %F{8}%D{%H:%M}%f'
+RPROMPT='${vcs_info_msg_0_} %(!.%F{red}⚡%f.%F{green}%f) %F{8}%D{%H:%M}%f'
+
+# Add hooks
+add-zsh-hook precmd add-newline-to-prompt
+add-zsh-hook precmd set_prompt
 add-zsh-hook precmd vcs_info
 
 ### Oh My Zsh Framework

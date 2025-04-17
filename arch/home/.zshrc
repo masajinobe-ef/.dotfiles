@@ -10,7 +10,7 @@ export SAVEHIST=$HISTSIZE
 setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
 
-# Define custom colors
+### Prompt
 autoload -Uz colors && colors
 typeset -gA fg
 fg[love]=$'\e[31m'        # red
@@ -19,7 +19,6 @@ fg[iris]=$'\e[34m'        # blue
 fg[foam]=$'\e[36m'        # cyan
 fg[rose]=$'\e[35m'        # magenta
 fg[pine]=$'\e[32m'        # green
-
 autoload -Uz add-zsh-hook vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true

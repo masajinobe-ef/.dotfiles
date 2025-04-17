@@ -33,7 +33,7 @@ zstyle ':vcs_info:*' actionformats '%F{red} %b|%a%f %u%c'
 +vi-git-repo-status() {
   if [[ -n "$(git rev-list @{u}..HEAD 2>/dev/null)" ]]; then
     hook_com[branch]="%F{magenta}${hook_com[branch]}%f"
-    hook_com[unstaged]+="%F{magenta}%f"
+    hook_com[unstaged]+="%F{magenta} %f"
   fi
 
   if [[ $(git status --porcelain | wc -l) -gt 0 ]]; then

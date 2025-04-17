@@ -14,7 +14,7 @@
 |   Compositor   |       [picom](https://github.com/yshui/picom)       |
 |      Menu      |     [rofi](https://github.com/davatorium/rofi)      |
 |    Terminal    | [alacritty](https://github.com/alacritty/alacritty) |
-|  File Manager  |     [yazi / thunar](https://yazi-rs.github.io)      |
+|  File Manager  |          [yazi](https://yazi-rs.github.io)          |
 |    Browser     |  [thorium](https://github.com/Alex313031/thorium)   |
 |  Text Editor   |             [neovim](https://neovim.io)             |
 
@@ -31,26 +31,6 @@ $ sudo pacman -Syu --needed neovim reflector git base-devel
 $ git clone https://aur.archlinux.org/yay.git
 $ cd yay && makepkg -si
 $ cd ~ && rm -rf yay
-```
-
-#### Makepkg
-
-To **speed up the compilation** of packages, edit the `makepkg.conf` file (use _nproc_ for see amount of CPU cores):
-
-```sh
-$ sudo nvim /etc/makepkg.conf
-
-MAKEFLAGS="-j4"
-```
-
-#### Pacman
-
-Enable **parallel downloading** of packages by editing the `pacman.conf` file:
-
-```sh
-$ sudo nvim /etc/pacman.conf
-
-ParallelDownloads = 8
 ```
 
 #### Clone repository
@@ -77,13 +57,13 @@ yay -S --needed --noconfirm \
     libva-mesa-driver lib32-mesa networkmanager nm-connection-editor \
     sof-firmware bluez bluez-utils acpid cronie udisks2 \
     xdg-user-dirs yazi perl-image-exiftool ueberzugpp imagemagick \
-    thunar tumbler ffmpegthumbnailer polkit-gnome \
+    polkit-gnome \
     lxappearance-gtk3 neovim mpv mpd mpdris2 ncmpcpp mpc \
-    tmux tmuxp tldr ghq rainfrog syncthing git lazygit stow yt-dlp \
-    ffmpeg fastfetch btop eza fzf fd ripgrep bat bat-extras \
-    rsync curl wget maim xdotool xclip zoxide aria2 hyperfine \
-    xsel reflector jq man-db poppler ccache go rustup nodejs \
-    npm pnpm p7zip unrar zip unzip ttf-jetbrains-mono-nerd \
+    tmux tmuxp ghq rainfrog git stow yt-dlp \
+    ffmpeg fastfetch btop eza fzf fd ripgrep \
+    curl wget maim xdotool xclip \
+    xsel reflector jq poppler \
+    p7zip unrar zip unzip ttf-jetbrains-mono-nerd \
     noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-cascadia-code-nerd \
     papirus-icon-theme
 ```
@@ -99,7 +79,6 @@ $ sudo systemctl enable bluetooth.service --now
 $ sudo systemctl enable sshd.service --now
 $ sudo systemctl enable cronie.service --now
 
-$ systemctl --user enable syncthing.service --now
 $ systemctl --user enable mpd.service --now
 
 $ sudo systemctl enable fstrim.timer
@@ -113,9 +92,7 @@ $ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/t
 
 Consider installing the following plugins for Zsh:
 
-- [powerlevel10k](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#oh-my-zsh)
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
 
 Install **commitizen**:
 

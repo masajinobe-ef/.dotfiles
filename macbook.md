@@ -24,7 +24,7 @@ acpid cronie auto-cpufreq brightnessctl \
 networkmanager nm-connection-editor \
 
 # File manager
-xdg-user-dirs yazi imagemagick thunar tumbler lxappearance-gtk3 xreader \
+xdg-user-dirs yazi imagemagick lxappearance-gtk3 \
 ffmpegthumbnailer perl-image-exiftool ueberzugpp \
 polkit-gnome \
 
@@ -36,17 +36,13 @@ mpv \
 
 # CLI
 tmux \
-git lazygit stow \
+git stow \
 yt-dlp ffmpeg \
 fastfetch btop eza \
 fzf fd ripgrep \
-bat bat-extras rsync curl wget \
+curl wget \
 maim xdotool xclip \
-zoxide aria2 hyperfine \
-xsel reflector jq man-db poppler \
-
-# Dev
-go rust nodejs npm yarn \
+xsel reflector jq poppler \
 
 # Archiver
 p7zip unrar zip unzip \
@@ -85,16 +81,6 @@ MODULES=(vfat)
 $ sudo mkinitcpio -P
 ```
 
-#### Config GRUB (only for macbook)
-
-```sh
-$ sudo nvim /etc/default/grub
-
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet mitigations=off intel_pstate=disable nowatchdog"
-
-$ sudo grub-mkconfig -o /boot/grub/grub.cfg
-```
-
 #### Daemons
 
 Enable and start necessary services:
@@ -107,7 +93,6 @@ $ sudo systemctl enable cronie.service --now
 $ sudo systemctl enable auto-cpufreq.service --now
 
 $ sudo systemctl enable fstrim.timer
-$ sudo systemctl enable reflector.timer
 ```
 
 ---

@@ -11,6 +11,7 @@ show_symlink = true
 
 [preview]
 cache_dir = "~/.cache/yazi"
+image = "ueberzugpp"
 
 [opener]
 edit_nvim = [

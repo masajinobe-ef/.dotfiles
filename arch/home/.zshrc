@@ -105,6 +105,8 @@ alias rm="rm -rfv"
 alias cp="cp -vr"
 alias mkdir="mkdir -p"
 alias s="clear; eza --long --header --icons=always --all --level=1 --group-directories-first --no-time"
+alias l=s
+alias ls=s
 alias pwdcp="pwd|tr -d '\n'|xclip -selection clipboard"
 alias untar="tar -xvvf"
 alias zz="zip -r"

@@ -68,9 +68,23 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 ### Key Bindings
+tmux-workflow-widget() {
+  tmux-workflow
+  zle reset-prompt
+}
+
+tmux-sessionizer-widget() {
+  tmux-sessionizer
+  zle reset-prompt
+}
+
+zle -N tmux-workflow-widget
+zle -N tmux-sessionizer-widget
+
+bindkey '^e' tmux-workflow-widget
+bindkey '^f' tmux-sessionizer-widget
+
 bindkey '^l' autosuggest-accept
-bindkey -s '^e' "tmux-workflow\n"
-bindkey -s '^f' "tmux-sessionizer\n"
 
 ### Environment Configuration
 export SUDO_PROMPT="ENTER YOUR PASSWORD: "

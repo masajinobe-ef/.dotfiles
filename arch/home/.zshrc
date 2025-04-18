@@ -68,6 +68,7 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 ### Key Bindings
+bindkey '^l' autosuggest-accept
 bindkey -s '^e' "tmux-workflow\n"
 bindkey -s '^f' "tmux-sessionizer\n"
 

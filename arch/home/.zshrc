@@ -72,19 +72,19 @@ tmux-workflow-widget() {
   tmux-workflow
   zle reset-prompt
 }
+zle -N tmux-workflow-widget
+bindkey '^e' tmux-workflow-widget
 
 tmux-sessionizer-widget() {
   tmux-sessionizer
   zle reset-prompt
 }
-
-zle -N tmux-workflow-widget
 zle -N tmux-sessionizer-widget
-
-bindkey '^e' tmux-workflow-widget
 bindkey '^f' tmux-sessionizer-widget
 
 bindkey '^l' autosuggest-accept
+bindkey '^i' accept-line
+bindkey '^u' expand-or-complete
 
 ### Environment Configuration
 export SUDO_PROMPT="ENTER YOUR PASSWORD: "
@@ -96,6 +96,10 @@ export TERMINAL="alacritty"
 export BROWSER="thorium-browser"
 
 # --- Development Tools ---
+export CCACHE_DIR="/tmp/ccache"
+export CC="ccache gcc"
+export CXX="ccache g++"
+export CPP="ccache cpp"
 export UV_LINK_MODE=copy
 export RUFF_CACHE_DIR="$HOME/.cache/ruff"
 export COMPOSE_BAKE=true
@@ -127,7 +131,8 @@ alias untar="tar -xvvf"
 alias zz="zip -r"
 alias uz="unzip"
 alias orph="yay -Rns \$(yay -Qdtq)"
-alias mirror-update="sudo reflector --verbose \
+alias grubupdate="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias mirrorupdate="sudo reflector --verbose \
   --protocol https \
   --age 72 \
   --sort rate \

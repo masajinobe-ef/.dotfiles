@@ -96,10 +96,10 @@ export TERMINAL="alacritty"
 export BROWSER="thorium-browser"
 
 # --- Development Tools ---
-export CCACHE_DIR="/tmp/ccache"
-export CC="ccache gcc"
-export CXX="ccache g++"
-export CPP="ccache cpp"
+# export CCACHE_DIR="/tmp/ccache"
+# export CC="ccache gcc"
+# export CXX="ccache g++"
+# export CPP="ccache cpp"
 export UV_LINK_MODE=copy
 export RUFF_CACHE_DIR="$HOME/.cache/ruff"
 export COMPOSE_BAKE=true

@@ -1,49 +1,48 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-switch_to() {
-    if [[ -z "$TMUX" ]]; then
-        tmux attach-session -t "$1"
-    else
-        tmux switch-client -t "$1"
-    fi
+SEARCH_DIRS=("$HOME/ghq")
+SESSIONIZER_FILE=".tmux-sessionizer"
+
+command -v tmux >/dev/null 2>&1 || {
+    echo "tmux not found." >&2
+    exit 1
 }
-
-has_session() {
-    tmux list-sessions | grep -q "^$1:"
-}
-
-hydrate() {
-    if [ -f "$2/.tmux-sessionizer" ]; then
-        tmux send-keys -t "$1" "source $2/.tmux-sessionizer" C-m
-    elif [ -f "$HOME/.tmux-sessionizer" ]; then
-        tmux send-keys -t "$1" "source $HOME/.tmux-sessionizer" C-m
-    fi
+command -v fzf >/dev/null 2>&1 || {
+    echo "fzf not found." >&2
+    exit 1
 }
 
 if [[ $# -eq 1 ]]; then
-    selected="$1"
+    target_dir="$1"
 else
-    selected=$(find "$HOME/.dotfiles/personal" "$HOME/ghq/github.com/" -mindepth 1 -maxdepth 2 -type d | fzf)
+    target_dir=$(
+        find "${SEARCH_DIRS[@]}" -mindepth 3 -maxdepth 3 -type d \
+            2>/dev/null | fzf --height=40% --border --prompt="Select project ▶ " \
+            --bind 'J:down,K:up'
+    ) || exit 0
 fi
 
-if [[ -z "$selected" ]]; then
-    exit 0
+[[ -z "$target_dir" ]] && exit 0
+
+session_name=$(basename "$target_dir" | tr '.' '_')
+
+if [[ -f "$target_dir/$SESSIONIZER_FILE" ]]; then
+    init_cmd="source \"$target_dir/$SESSIONIZER_FILE\"; exec \$SHELL"
+elif [[ -f "$HOME/$SESSIONIZER_FILE" ]]; then
+    init_cmd="source \"$HOME/$SESSIONIZER_FILE\"; exec \$SHELL"
+else
+    init_cmd="exec \$SHELL"
 fi
 
-selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
-
-if [[ -z "$TMUX" ]] && [[ -z "$tmux_running" ]]; then
-    tmux new-session -s "$selected_name" -c "$selected"
-    hydrate "$selected_name" "$selected"
-    exit 0
+if [[ -n "${TMUX:-}" ]]; then
+    if tmux has-session -t "$session_name" 2>/dev/null; then
+        tmux switch-client -t "$session_name"
+    else
+        tmux new-session -ds "$session_name" -c "$target_dir" "$init_cmd"
+        tmux switch-client -t "$session_name"
+    fi
+else
+    exec tmux new-session -As "$session_name" -c "$target_dir" "$init_cmd"
 fi
-
-if ! has_session "$selected_name"; then
-    tmux new-session -ds "$selected_name" -c "$selected"
-    hydrate "$selected_name" "$selected"
-fi
-
-switch_to "$selected_name"

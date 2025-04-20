@@ -68,8 +68,18 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 ### Key Bindings
-bindkey -s '^e' "tmux-workflow\n"
-bindkey -s '^f' "tmux-sessionizer\n"
+
+tmux-sessionizer-widget() {
+  tmux-sessionizer
+  zle reset-prompt
+}
+zle -N tmux-sessionizer-widget
+bindkey '^F' tmux-sessionizer-widget
+
+bindkey -s '^e' 'tmux new-session -As WORKFLOW\n'
+bindkey '^I' expand-or-complete  # Tab = completions
+bindkey '^U' accept-line         # Ctrl+U = submit command
+bindkey '^L' autosuggest-accept  # Ctrl+L = accept suggestion
 
 ### Environment Configuration
 export SUDO_PROMPT="ENTER YOUR PASSWORD: "
@@ -81,6 +91,10 @@ export TERMINAL="alacritty"
 export BROWSER="thorium-browser"
 
 # --- Development Tools ---
+# export CCACHE_DIR="/tmp/ccache"
+# export CC="ccache gcc"
+# export CXX="ccache g++"
+# export CPP="ccache cpp"
 export UV_LINK_MODE=copy
 export RUFF_CACHE_DIR="$HOME/.cache/ruff"
 export COMPOSE_BAKE=true
@@ -105,12 +119,15 @@ alias rm="rm -rfv"
 alias cp="cp -vr"
 alias mkdir="mkdir -p"
 alias s="clear; eza --long --header --icons=always --all --level=1 --group-directories-first --no-time"
+alias l=s
+alias ls=s
 alias pwdcp="pwd|tr -d '\n'|xclip -selection clipboard"
 alias untar="tar -xvvf"
 alias zz="zip -r"
 alias uz="unzip"
 alias orph="yay -Rns \$(yay -Qdtq)"
-alias mirror-update="sudo reflector --verbose \
+alias grubupdate="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias mirrorupdate="sudo reflector --verbose \
   --protocol https \
   --age 72 \
   --sort rate \

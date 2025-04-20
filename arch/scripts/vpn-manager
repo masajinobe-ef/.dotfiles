@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+CONFIG_FILE="$HOME/.dotfiles/personal/sing-box/temnomor.json"
+SERVICE_NAME="sing-box"
+LOCK_TIMEOUT=5
+
+check_config() {
+    if [[ ! -f "${CONFIG_FILE:?}" ]]; then
+        echo "Configuration file $CONFIG_FILE not found!"
+        exit 1
+    fi
+
+    if [[ ! -r "${CONFIG_FILE:?}" ]]; then
+        echo "Missing read permissions for configuration file!"
+        exit 1
+    fi
+}
+
+check_sudo() {
+    if ! sudo -v; then
+        echo "sudo authentication failed!"
+        exit 1
+    fi
+}
+
+stop_service() {
+    if pgrep -x "${SERVICE_NAME:?}" >/dev/null; then
+        echo "Stopping running $SERVICE_NAME..."
+        sudo pkill -x "${SERVICE_NAME:?}"
+
+        local timeout=0
+        while pgrep -x "${SERVICE_NAME:?}" >/dev/null && [[ $timeout -lt $LOCK_TIMEOUT ]]; do
+            sleep 1
+            ((timeout++))
+        done
+
+        if pgrep -x "${SERVICE_NAME:?}" >/dev/null; then
+            echo "Force killing $SERVICE_NAME..."
+            sudo pkill -9 -x "${SERVICE_NAME:?}"
+        fi
+    fi
+}
+
+start_service() {
+    echo "Starting $SERVICE_NAME..."
+    if ! sudo "${SERVICE_NAME:?}" run -c "${CONFIG_FILE:?}"; then
+        echo "Failed to start $SERVICE_NAME!"
+        exit 1
+    fi
+
+    sleep 1
+
+    if ! pgrep -x "${SERVICE_NAME:?}" >/dev/null; then
+        echo "$SERVICE_NAME failed to launch!"
+        exit 1
+    fi
+}
+
+main() {
+    check_config
+    check_sudo
+    stop_service
+    start_service
+
+    echo "Success! $SERVICE_NAME running with PID: $(pgrep -x "${SERVICE_NAME:?}")"
+}
+
+if ! main; then
+    echo "Script execution failed"
+    exit 1
+fi
+
+exit 0

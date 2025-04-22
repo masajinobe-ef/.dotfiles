@@ -133,8 +133,8 @@ alias untar="tar -xvvf"
 alias zz="zip -r"
 alias uz="unzip"
 alias orph="yay -Rns \$(yay -Qdtq)"
-alias grubupdate="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias mirrorupdate="sudo reflector --verbose \
+alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias mirror-update="sudo reflector --verbose \
   --protocol https \
   --age 72 \
   --sort rate \

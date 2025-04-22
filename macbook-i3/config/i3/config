@@ -134,7 +134,7 @@ exec_always --no-startup-id sh -c "xset r rate 180 50"
 exec_always --no-startup-id xrandr --output eDP1 --mode 1366x768 --rate 60
 
 # Set Display Power Management Signaling (DMPS)
-exec_always --no-startup-id xset dpms 180 300 600
+#exec_always --no-startup-id xset dpms 180 300 600
 
 # Set display brightness
 exec_always --no-startup-id brightnessctl set "40%" -q

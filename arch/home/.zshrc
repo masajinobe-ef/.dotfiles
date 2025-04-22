@@ -76,6 +76,13 @@ tmux-sessionizer-widget() {
 zle -N tmux-sessionizer-widget
 bindkey '^F' tmux-sessionizer-widget
 
+yazi-widget() {
+  y
+  zle reset-prompt
+}
+zle -N yazi-widget
+bindkey '^Y' yazi-widget
+
 bindkey -s '^e' 'tmux new-session -As WORKFLOW\n'
 bindkey '^I' expand-or-complete  # Tab = completions
 bindkey '^U' accept-line         # Ctrl+U = submit command

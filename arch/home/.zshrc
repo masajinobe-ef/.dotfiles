@@ -143,6 +143,7 @@ function mirror-update() {
     --exclude '.*(lcarilla\.de|kumi\.systems|soulharsh007\.dev|unixpeople\.org).*' \
     --download-timeout 20 \
     --connection-timeout 10 \
+    --verbose \
     --save /etc/pacman.d/mirrorlist
 }
 

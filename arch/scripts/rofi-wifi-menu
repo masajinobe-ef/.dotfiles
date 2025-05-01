@@ -2,8 +2,6 @@
 
 set -e
 
-notify-send "Getting list of available Wi-Fi networks..."
-
 wifi_list=$(nmcli --fields "SECURITY,SSID" device wifi list | tail -n +2 | sed 's/  */ /g' | sed -E "s/WPA*.?\S/ /g" | sed "s/^--/ /g" | sed "s/  //g" | sed "/--/d")
 
 connected=$(nmcli -fields WIFI g)
@@ -30,11 +28,11 @@ else
 
     saved_connections=$(nmcli -g NAME connection)
     if echo "$saved_connections" | rg -q "^$chosen_id$"; then
-        nmcli connection up id "$chosen_id" | grep -q "successfully" && notify-send "Connection Established" "$success_message"
+        nmcli connection up id "$chosen_id" | grep -q "successfully" && "$success_message"
     else
         if [[ "$chosen_network" =~ "" ]]; then
             wifi_password=$(rofi -dmenu -p "Password: ")
         fi
-        nmcli device wifi connect "$chosen_id" password "$wifi_password" | grep -q "successfully" && notify-send "Connection Established" "$success_message"
+        nmcli device wifi connect "$chosen_id" password "$wifi_password" | grep -q "successfully" && "$success_message"
     fi
 fi

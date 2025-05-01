@@ -148,9 +148,9 @@ exec --no-startup-id alacritty -e zsh -c "tmux has-session -t WORKFLOW 2>/dev/nu
 
 ### ======================= Start Environment ======================= ###
 
-exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id sh -c "redshift"
+#exec --no-startup-id picom --config ~/.config/picom/picom.conf --daemon
 #exec --no-startup-id dunst --config ~/.config/dunst/dunstrc
 #exec --no-startup-id feh --recursive --bg-fill --no-fehbg --randomize ~/Wallpapers/mac/*
 

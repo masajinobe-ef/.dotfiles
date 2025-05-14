@@ -1,7 +1,0 @@
-{
-  "path": "cz-customizable",
-  "additionalPaths": [
-    "cz-conventional-changelog"
-  ]
-}
-

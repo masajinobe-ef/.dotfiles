@@ -86,7 +86,7 @@ zle -N yazi-widget
 bindkey '^F' tmux-sessionizer-widget               # Ctrl+F
 bindkey '^E' tmux-workflow-widget                  # Ctrl+E
 bindkey '^Y' yazi-widget                           # Ctrl+Y
-bindkey -s '^P' "clear; czpush\n"                 # Ctrl+P
+bindkey -s '^P' "clear; gitpush\n"                 # Ctrl+P
 
 # Standard bindings
 bindkey '^I' expand-or-complete          # Tab

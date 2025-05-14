@@ -94,12 +94,6 @@ Consider installing the following plugins for Zsh:
 
 - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
 
-Install **commitizen**:
-
-```sh
-$ npm install -g commitizen commitizen-cli cz-conventional-changelog cz-customizable
-```
-
 Install **uv**:
 
 ```sh
